@@ -14,7 +14,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.OrderId;
-import seedu.address.model.person.Person;
+import seedu.address.model.client.Client;
 
 
 /**
@@ -45,13 +45,13 @@ public class DeleteOrderCommand extends Command {
 
 
     /**
-     * Retrieves the order from the person which matches the index.
+     * Retrieves the order from the client which matches the index.
      *
-     * @param person Person to retrieve the order from.
+     * @param client Client to retrieve the order from.
      * @return Order if found, else null.
      */
-    private Order getOrderFromPerson(Person person) {
-        return person.getOrders().stream()
+    private Order getOrderFromClient(Client client) {
+        return client.getOrders().stream()
                 .filter(order -> order.checkId(this.index))
                 .findFirst()
                 .orElse(null);
@@ -62,14 +62,14 @@ public class DeleteOrderCommand extends Command {
         requireAllNonNull(model);
 
         Order changeOrder = null;
-        Person personToEdit = null;
-        List<Person> personList = model.getAddressBook().getPersonList();
+        Client clientToEdit = null;
+        List<Client> clientList = model.getAddressBook().getClientList();
 
-        for (Person person : personList) {
-            Order order = getOrderFromPerson(person);
+        for (Client client : clientList) {
+            Order order = getOrderFromClient(client);
             if (order != null) {
                 changeOrder = order;
-                personToEdit = person;
+                clientToEdit = client;
                 break;
             }
         }
@@ -78,14 +78,14 @@ public class DeleteOrderCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
         }
 
-        Person editedPerson = new Person(
-                personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
-                personToEdit.getAddress(), personToEdit.getTags(),
-                removeOrder(this.index, personToEdit.getOrders()));
+        Client editedClient = new Client(
+                clientToEdit.getName(), clientToEdit.getPhone(), clientToEdit.getEmail(),
+                clientToEdit.getAddress(), clientToEdit.getTags(),
+                removeOrder(this.index, clientToEdit.getOrders()));
 
-        model.setPerson(personToEdit, editedPerson);
+        model.setClient(clientToEdit, editedClient);
 
-        return new CommandResult(generateSuccessMessage(editedPerson));
+        return new CommandResult(generateSuccessMessage(editedClient));
     }
 
     private Set<Order> removeOrder(OrderId orderId, Set<Order> orders) {
@@ -104,9 +104,9 @@ public class DeleteOrderCommand extends Command {
     /**
      * Generates a command execution success message based on whether
      * the order is added to or removed from
-     * {@code personToEdit}.
+     * {@code clientToEdit}.
      */
-    private String generateSuccessMessage(Person personToEdit) {
-        return String.format(MESSAGE_SUCCESS, personToEdit);
+    private String generateSuccessMessage(Client clientToEdit) {
+        return String.format(MESSAGE_SUCCESS, clientToEdit);
     }
 }

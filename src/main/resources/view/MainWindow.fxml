@@ -42,15 +42,15 @@
                     </padding>
                 </StackPane>
 
-                <!-- SplitPane to hold both person list and order list -->
+                <!-- SplitPane to hold both client list and order list -->
                 <SplitPane VBox.vgrow="ALWAYS">
-                    <!-- Person List Section -->
+                    <!-- Client List Section -->
                     <VBox styleClass="pane-with-border" minWidth="340" prefWidth="340">
                         <padding>
                             <Insets top="10" right="10" bottom="10" left="10"/>
                         </padding>
                         <Label text="My Clients" styleClass="section-title"/>
-                        <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                        <StackPane fx:id="clientListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                     </VBox>
 
                     <!-- Order List Section -->

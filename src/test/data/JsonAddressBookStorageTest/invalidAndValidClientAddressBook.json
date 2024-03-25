@@ -1,0 +1,18 @@
+{
+  "clients": [
+    {
+      "name": "Valid Client",
+      "phone": "9482424",
+      "email": "hans@example.com",
+      "address": "4th street",
+      "orders": []
+    },
+    {
+      "name": "Client With Invalid Phone Field",
+      "phone": "948asdf2424",
+      "email": "hans@example.com",
+      "address": "4th street",
+      "orders": []
+    }
+  ]
+}

@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CLIENT;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -26,20 +26,20 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.OrderId;
-import seedu.address.model.person.Person;
+import seedu.address.model.client.Client;
 import seedu.address.testutil.OrderBuilder;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.ClientBuilder;
 
 public class DeleteOrderCommandTest {
 
     @Test
     public void execute_deleteOrderByModel_deleteSuccessful() throws Exception {
-        PersonBuilder personBuilder = new PersonBuilder();
-        Person person = personBuilder.build();
+        ClientBuilder clientBuilder = new ClientBuilder();
+        Client client = clientBuilder.build();
         OrderBuilder builder = new OrderBuilder();
         Order order = builder.build();
-        ModelStubDeletingOrder modelStub = new ModelStubDeletingOrder(order, person);
-        Index targetIndex = INDEX_FIRST_PERSON;
+        ModelStubDeletingOrder modelStub = new ModelStubDeletingOrder(order, client);
+        Index targetIndex = INDEX_FIRST_CLIENT;
         CommandResult commandResult = new AddOrderCommand(targetIndex, order).execute(modelStub);
         commandResult = new DeleteOrderCommand(order.getOrderId()).execute(modelStub);
         assertEquals(0, modelStub.getOrderList().size());
@@ -47,12 +47,12 @@ public class DeleteOrderCommandTest {
 
     @Test
     public void execute_deleteOrderByModel_deleteUnsuccessful() throws Exception {
-        PersonBuilder personBuilder = new PersonBuilder();
-        Person person = personBuilder.build();
+        ClientBuilder clientBuilder = new ClientBuilder();
+        Client client = clientBuilder.build();
         OrderBuilder builder = new OrderBuilder();
         Order order = builder.build();
-        ModelStubDeletingOrder modelStub = new ModelStubDeletingOrder(order, person);
-        Index targetIndex = INDEX_FIRST_PERSON;
+        ModelStubDeletingOrder modelStub = new ModelStubDeletingOrder(order, client);
+        Index targetIndex = INDEX_FIRST_CLIENT;
         CommandResult commandResult = new AddOrderCommand(targetIndex, order).execute(modelStub);
         OrderId invalidId = new OrderId();
         assertThrows(CommandException.class, () -> new DeleteOrderCommand(invalidId).execute(modelStub));
@@ -93,7 +93,7 @@ public class DeleteOrderCommandTest {
         }
 
         @Override
-        public void addPerson(Person person) {
+        public void addClient(Client client) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -108,27 +108,27 @@ public class DeleteOrderCommandTest {
         }
 
         @Override
-        public boolean hasPerson(Person person) {
+        public boolean hasClient(Client client) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deletePerson(Person target) {
+        public void deleteClient(Client target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setPerson(Person target, Person editedPerson) {
+        public void setClient(Client target, Client editedClient) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setPerson(Person target, Person editedPerson, Order order) {
+        public void setClient(Client target, Client editedClient, Order order) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<Person> getFilteredPersonList() {
+        public ObservableList<Client> getFilteredClientList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -138,7 +138,7 @@ public class DeleteOrderCommandTest {
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
+        public void updateFilteredClientList(Predicate<Client> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -154,43 +154,43 @@ public class DeleteOrderCommandTest {
      */
     private class ModelStubDeletingOrder extends ModelStub {
         private Order order;
-        private Person person;
+        private Client client;
 
-        ModelStubDeletingOrder(Order order, Person person) {
+        ModelStubDeletingOrder(Order order, Client client) {
             requireNonNull(order);
             this.order = order;
-            this.person = person;
+            this.client = client;
         }
 
         @Override
-        public void setPerson(Person target, Person editedPerson) {
-            requireAllNonNull(target, editedPerson);
-            this.person = editedPerson;
+        public void setClient(Client target, Client editedClient) {
+            requireAllNonNull(target, editedClient);
+            this.client = editedClient;
         }
 
         @Override
-        public void setPerson(Person target, Person editedPerson, Order order) {
-            requireAllNonNull(target, editedPerson);
-            this.person = editedPerson;
+        public void setClient(Client target, Client editedClient, Order order) {
+            requireAllNonNull(target, editedClient);
+            this.client = editedClient;
         }
 
         @Override
-        public ObservableList<Person> getFilteredPersonList() {
-            List<Person> sampleList = new ArrayList<>();
-            sampleList.add(this.person);
-            ObservableList<Person> personList = FXCollections.observableArrayList(sampleList);
-            return personList;
+        public ObservableList<Client> getFilteredClientList() {
+            List<Client> sampleList = new ArrayList<>();
+            sampleList.add(this.client);
+            ObservableList<Client> clientList = FXCollections.observableArrayList(sampleList);
+            return clientList;
         }
 
         private ObservableList<Order> getOrderList() {
-            ObservableList<Order> orderList = FXCollections.observableArrayList(this.person.getOrders());
+            ObservableList<Order> orderList = FXCollections.observableArrayList(this.client.getOrders());
             return orderList;
         }
 
         @Override
         public ReadOnlyAddressBook getAddressBook() {
             AddressBook addressBook = new AddressBook();
-            addressBook.addPerson(this.person);
+            addressBook.addClient(this.client);
             return addressBook;
         }
 

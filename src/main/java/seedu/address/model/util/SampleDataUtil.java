@@ -13,18 +13,18 @@ import seedu.address.model.order.OrderDate;
 import seedu.address.model.order.OrderId;
 import seedu.address.model.order.Remark;
 import seedu.address.model.order.Status;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.client.Address;
+import seedu.address.model.client.Email;
+import seedu.address.model.client.Name;
+import seedu.address.model.client.Client;
+import seedu.address.model.client.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
 public class SampleDataUtil {
-    public static Person[] getSamplePersons() {
+    public static Client[] getSampleClients() {
         Order p1o1 = new Order(
                 new OrderId(
                         "69c25c8d-9e34-4d9d-8bad-e378f203ae73"),
@@ -35,19 +35,19 @@ public class SampleDataUtil {
         );
         Set<Order> s1 = Set.of(p1o1);
 
-        Person p1 = new Person(
+        Client p1 = new Client(
                 new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
                 new Address("Blk 30 Geylang Street 29, #06-40"),
                 getTagSet("friends"),
                 s1);
 
-        return new Person[]{p1};
+        return new Client[]{p1};
     }
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
-        for (Person samplePerson : getSamplePersons()) {
-            sampleAb.addPerson(samplePerson);
+        for (Client sampleClient : getSampleClients()) {
+            sampleAb.addClient(sampleClient);
         }
         return sampleAb;
     }
