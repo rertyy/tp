@@ -18,8 +18,8 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.order.Order;
-import seedu.address.testutil.OrderBuilder;
 import seedu.address.testutil.ClientBuilder;
+import seedu.address.testutil.OrderBuilder;
 
 public class ClientTest {
 

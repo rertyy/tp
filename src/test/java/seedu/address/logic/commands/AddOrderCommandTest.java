@@ -23,10 +23,10 @@ import seedu.address.logic.commands.orders.AddOrderCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.order.Order;
 import seedu.address.model.client.Client;
-import seedu.address.testutil.OrderBuilder;
+import seedu.address.model.order.Order;
 import seedu.address.testutil.ClientBuilder;
+import seedu.address.testutil.OrderBuilder;
 
 public class AddOrderCommandTest {
 

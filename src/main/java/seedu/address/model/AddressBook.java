@@ -6,10 +6,10 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.model.order.Order;
-import seedu.address.model.order.OrderList;
 import seedu.address.model.client.Client;
 import seedu.address.model.client.UniqueClientList;
+import seedu.address.model.order.Order;
+import seedu.address.model.order.OrderList;
 
 /**
  * Wraps all data at the address-book level.

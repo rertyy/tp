@@ -15,11 +15,11 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.order.OrderId;
 import seedu.address.model.client.Address;
 import seedu.address.model.client.Email;
 import seedu.address.model.client.Name;
 import seedu.address.model.client.Phone;
+import seedu.address.model.order.OrderId;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.OrderBuilder;
 

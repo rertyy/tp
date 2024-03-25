@@ -26,13 +26,13 @@ import seedu.address.logic.commands.orders.AddOrderCommand;
 import seedu.address.logic.commands.orders.DeleteOrderCommand;
 import seedu.address.logic.commands.orders.ViewOrdersCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.order.OrderId;
-import seedu.address.model.client.NameContainsKeywordsPredicate;
 import seedu.address.model.client.Client;
-import seedu.address.testutil.EditClientDescriptorBuilder;
-import seedu.address.testutil.OrderBuilder;
+import seedu.address.model.client.NameContainsKeywordsPredicate;
+import seedu.address.model.order.OrderId;
 import seedu.address.testutil.ClientBuilder;
 import seedu.address.testutil.ClientUtil;
+import seedu.address.testutil.EditClientDescriptorBuilder;
+import seedu.address.testutil.OrderBuilder;
 
 public class AddressBookParserTest {
 
