@@ -145,13 +145,13 @@ designers, and boutique flower businesses.
 ## 4. Quick start
 
 1. Ensure you have Java `11` and above installed in your system.
-   * You may check if you have Java installed by opening your command prompt or terminal, and type:  
-   `java --version`
-     * If Java is installed, you should ensure that it is currently running on version "11.x.xx".
-     * ![img_2.png](images/JavaVersionScreenshot.png)
-       * If you encounter an error, or if your version does not match our specified requirements, you may visit the 
-       [Official Oracle website](https://www.oracle.com/java/technologies/javase/jdk11-archive-downloads.html) to 
-       download the Java JDK required to run this project.
+    * You may check if you have Java installed by opening your command prompt or terminal, and type:  
+      `java --version`
+        * If Java is installed, you should ensure that it is currently running on version "11.x.xx".
+        * ![img_2.png](images/JavaVersionScreenshot.png)
+            * If you encounter an error, or if your version does not match our specified requirements, you may visit the
+              [Official Oracle website](https://www.oracle.com/java/technologies/javase/jdk11-archive-downloads.html) to
+              download the Java JDK required to run this project.
 
 2. Download the latest `bookkeeper.jar` release from [here](https://github.com/AY2324S2-CS2103T-T09-2/tp/releases).
 
@@ -165,25 +165,25 @@ designers, and boutique flower businesses.
    ![Ui](images/Ui.png)
 
 6. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will
-   open the help window.<br> 
+   open the help window.<br>
    Some example commands you can try:
     * Listing all contacts:
-      * Command: `list`
+        * Command: `list`
     * Adding a new Client:
-      * Command `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-      * Adds a new `client` named `John Doe` to BookKeeper.
+        * Command `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
+        * Adds a new `client` named `John Doe` to BookKeeper.
     * Adding a new Order:
-      * Command `order 1 d/1xRoses c/20.99 by/20-10-2030 10:00`
-      * Adds a new `order` for 1 Rose, at $20.99 that is to be delivered by 20-10-2030 10:00.
+        * Command `order 1 d/1xRoses c/20.99 by/20-10-2030 10:00`
+        * Adds a new `order` for 1 Rose, at $20.99 that is to be delivered by 20-10-2030 10:00.
     * Delete an existing Client.
-      * Command `delete 1`
-      * Deletes the `client` with an index of 1.
+        * Command `delete 1`
+        * Deletes the `client` with an index of 1.
     * Clear BookKeeper
-      * Command `clear`
-      * Clears all clients and orders.
+        * Command `clear`
+        * Clears all clients and orders.
     * Exit
-      * Command `exit`
-      * Closes the application.
+        * Command `exit`
+        * Closes the application.
 
 7. Refer to the [Main Features](#6-main-features) below for details of each command.
 
@@ -271,9 +271,10 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
 
 **:information_source: Additional Notes:**<br>
 
-* A client can have any number of tags (including 0)
-* Tags do not accept whitespaces (e.g. "VIP 2" is not accepted, "VIP2" is accepted)
-* Tags only accept 0-9 and a-z (case-insensitive)
+* Clients with exact same name is not allowed.
+* A client can have any number of tags (including 0).
+* Tags do not accept whitespaces (e.g. "VIP 2" is not accepted, "VIP2" is accepted).
+* Name and Tags only accept 0-9 and a-z (case-insensitive).
 * Name must be unique. (BookKeeper does not currently support having multiple persons with the same name).
 * Phone number must be numeric and at least 3 numbers. It must not contain spaces ` `, brackets `()` or hyphens `-`,
   plus `+`, or other symbols.
@@ -403,13 +404,13 @@ Format: `order <INDEX> by/DEADLINE c/PRICE d/DESCRIPTION`
   (e.g. both `order <INDEX> by/DEADLINE c/PRICE d/DESCRIPTION` and `order <INDEX> d/DESCRIPTION c/PRICE by/DEADLINE`
   are acceptable)
 * All orders status are automatically set to PENDING.
-* OrderID is automatically generated for better reference during delivery.
 * Please specify `by/DEADLINE` field in `DD-MM-YYYY HH:MM`.
 * For the `c/PRICE` field, do note that any decimal places after 2 will be rounded up.
     * For e.g. `2.999` will be rounded up to `3.00`.
-* The order list will be sorted according to their deadline. 
-  * Meaning, if there are two orders, one due on `10-10-2025 10:00` and another due on `10-10-2025 10:30`, the order with 
-  the deadline of `10-10-2025 10:00` will have an index of `1`, and the other order will have an index of `2`. 
+* The order list will be sorted according to their deadline.
+    * Meaning, if there are two orders, one due on `10-10-2025 10:00` and another due on `10-10-2025 10:30`, the order
+      with
+      the deadline of `10-10-2025 10:00` will have an index of `1`, and the other order will have an index of `2`.
 
 </div>
 
@@ -556,6 +557,19 @@ and you may copy another bookkeeper.json to restore existing data.
 
 **Q**: How do I update my application?<br>
 **A**: You may download the latest release [here](https://github.com/AY2324S2-CS2103T-T09-2/tp/releases).
+
+### 7.3 Planned Features
+
+1. Enhanced Error Messaging
+    * Implementing more specific error messages for the "edit" and "editOrder" functions to provide clearer guidance
+      to users encountering issues.
+2. Extended Tag Length and Error Refinement
+    * Increase the maximum length of tags supported within the system, enabling users to provide more descriptive labels
+      and organize content effectively.
+3. Resolution Support
+    * Expand resolution support to include additional screen resolutions such as 1280x720, catering to a broader range
+      of devices and user preferences.
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## 8. Known issues
