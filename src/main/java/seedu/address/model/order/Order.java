@@ -99,8 +99,7 @@ public class Order {
         }
 
         Order otherOrder = (Order) other;
-        return otherOrder.getOrderId().equals(getOrderId())
-                && otherOrder.getOrderDate().equals(getOrderDate())
+        return otherOrder.getOrderDate().equals(getOrderDate())
                 && otherOrder.getDeadline().equals(getDeadline())
                 && otherOrder.getPrice().equals(getPrice())
                 && otherOrder.getRemark().equals(getRemark())

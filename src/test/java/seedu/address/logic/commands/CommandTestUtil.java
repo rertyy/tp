@@ -3,9 +3,12 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DETAILS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.Assert.assertThrows;
 
@@ -55,6 +58,30 @@ public class CommandTestUtil {
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+
+    // Valid constants for orders
+    public static final String VALID_DESCRIPTION_ROSES = "1xRoses";
+    public static final String VALID_COST_ROSES = "40";
+    public static final String VALID_DEADLINE_ROSES = "23-07-2024 00:00";
+    public static final String VALID_ORDER_DATE_ROSES = "23-07-2024 00:00";
+    public static final String VALID_ORDER_ID_ROSES = "f92e67e9-19be-469f-b4fa-c0ed906eecfa";
+
+
+    // Order command descriptions for testing
+    public static final String DESCRIPTION_DESC_ROSES = " " + PREFIX_DETAILS + VALID_DESCRIPTION_ROSES;
+    public static final String COST_DESC_ROSES = " " + PREFIX_PRICE + VALID_COST_ROSES;
+    public static final String DEADLINE_DESC_ROSES = " " + PREFIX_BY + VALID_DEADLINE_ROSES;
+
+    // Invalid constants for orders
+    public static final String INVALID_DESCRIPTION = "!!@#$%"; // Description with special characters not allowed
+    public static final String INVALID_COST = "notanumber"; // Cost must be numeric
+    public static final String INVALID_DEADLINE = "not-a-date"; // Incorrect date format
+
+    // Invalid order command descriptions for testing
+    public static final String INVALID_DESCRIPTION_DESC = " " + PREFIX_DETAILS + INVALID_DESCRIPTION;
+    public static final String INVALID_COST_DESC = " " + PREFIX_PRICE + INVALID_COST;
+    public static final String INVALID_DEADLINE_DESC = " " + PREFIX_BY + INVALID_DEADLINE;
+
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
