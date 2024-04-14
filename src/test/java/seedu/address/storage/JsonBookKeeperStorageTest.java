@@ -63,7 +63,7 @@ public class JsonBookKeeperStorageTest {
 
     @Test
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
-        Path filePath = testFolder.resolve("TempAddressBook.json");
+        Path filePath = testFolder.resolve("TempBookKeeper.json");
         BookKeeper original = getTypicalAddressBook();
         JsonBookKeeperStorage jsonAddressBookStorage = new JsonBookKeeperStorage(filePath);
 
