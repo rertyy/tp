@@ -21,7 +21,7 @@ LogicManager -> BookKeeperParser : parseCommand("deleteOrder 1")
 activate BookKeeperParser
 
 create DeleteOrderCommandParser
-BookKeeperParser -> DeleteOrderCommandParser
+BookKeeperParser -> DeleteOrderCommandParser : DeleteOrderCommandParser()
 activate DeleteOrderCommandParser
 
 DeleteOrderCommandParser --> BookKeeperParser
@@ -31,7 +31,7 @@ BookKeeperParser -> DeleteOrderCommandParser : parse("1")
 activate DeleteOrderCommandParser
 
 create DeleteOrderCommand
-DeleteOrderCommandParser -> DeleteOrderCommand : new DeleteOrderCommand(1)
+DeleteOrderCommandParser -> DeleteOrderCommand : DeleteOrderCommand(1)
 activate DeleteOrderCommand
 
 DeleteOrderCommand --> DeleteOrderCommandParser :
@@ -70,7 +70,7 @@ Model --> DeleteOrderCommand
 deactivate Model
 
 create CommandResult
-DeleteOrderCommand -> CommandResult
+DeleteOrderCommand -> CommandResult : CommandResult(message)
 activate CommandResult
 
 CommandResult --> DeleteOrderCommand

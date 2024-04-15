@@ -22,7 +22,7 @@ LogicManager -> BookKeeperParser : parseCommand("order args")
 activate BookKeeperParser
 
 create AddOrderCommandParser
-BookKeeperParser -> AddOrderCommandParser
+BookKeeperParser -> AddOrderCommandParser : AddOrderCommandParser()
 activate AddOrderCommandParser
 
 AddOrderCommandParser --> BookKeeperParser
@@ -32,13 +32,13 @@ BookKeeperParser -> AddOrderCommandParser : parse(args)
 activate AddOrderCommandParser
 
 create Order
-AddOrderCommandParser -> Order : new Order(args)
+AddOrderCommandParser -> Order : Order(args)
 activate Order
 Order --> AddOrderCommandParser
 deactivate Order
 
 create AddOrderCommand
-AddOrderCommandParser -> AddOrderCommand : new AddOrderCommand(o)
+AddOrderCommandParser -> AddOrderCommand : AddOrderCommand(o)
 activate AddOrderCommand
 
 AddOrderCommand --> AddOrderCommandParser :
@@ -63,7 +63,7 @@ Model --> AddOrderCommand
 deactivate Model
 
 create CommandResult
-AddOrderCommand -> CommandResult
+AddOrderCommand -> CommandResult : CommandResult(message)
 activate CommandResult
 
 CommandResult --> AddOrderCommand

@@ -1,0 +1,95 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":BookKeeperParser" as BookKeeperParser LOGIC_COLOR
+participant ":EditOrderCommandParser" as EditOrderCommandParser LOGIC_COLOR
+participant "eod:EditOrderDescriptor" as EditOrderDescriptor LOGIC_COLOR
+participant "e:EditOrderCommand" as EditOrderCommand LOGIC_COLOR
+participant "r:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "m:Model" as Model MODEL_COLOR
+participant "o:Order" as Order MODEL_COLOR
+end box
+
+[-> LogicManager : execute("editOrder args")
+activate LogicManager
+
+LogicManager -> BookKeeperParser : parseCommand("editOrder args")
+activate BookKeeperParser
+
+create EditOrderCommandParser
+BookKeeperParser -> EditOrderCommandParser : EditOrderCommandParser()
+activate EditOrderCommandParser
+
+EditOrderCommandParser --> BookKeeperParser
+deactivate EditOrderCommandParser
+
+BookKeeperParser -> EditOrderCommandParser : parse(args)
+activate EditOrderCommandParser
+
+create EditOrderDescriptor
+EditOrderCommandParser -> EditOrderDescriptor: EditOrderDescriptor()
+activate EditOrderDescriptor
+EditOrderDescriptor --> EditOrderCommandParser
+deactivate EditOrderDescriptor
+
+
+create EditOrderCommand
+EditOrderCommandParser -> EditOrderCommand : EditOrderCommand(index, eod)
+activate EditOrderCommand
+
+EditOrderCommand --> EditOrderCommandParser :
+deactivate EditOrderCommand
+
+EditOrderCommandParser --> BookKeeperParser : e
+deactivate EditOrderCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+EditOrderCommandParser -[hidden]-> BookKeeperParser
+destroy EditOrderCommandParser
+
+BookKeeperParser --> LogicManager : e
+deactivate BookKeeperParser
+
+LogicManager -> EditOrderCommand : execute(m)
+activate EditOrderCommand
+
+EditOrderCommand -> Model : getFilteredOrderList()
+activate Model
+Model --> EditOrderCommand
+deactivate Model
+
+create Order
+EditOrderCommand -> Order : Order(args)
+activate Order
+Order --> EditOrderCommand
+deactivate Order
+
+EditOrderCommand -> Model : updateOrder(o)
+activate Model
+
+Model --> EditOrderCommand
+deactivate Model
+
+EditOrderCommand -> Model : updateFilteredOrderList()
+activate Model
+Model --> EditOrderCommand
+deactivate Model
+
+create CommandResult
+EditOrderCommand -> CommandResult : CommandResult(message)
+activate CommandResult
+
+CommandResult --> EditOrderCommand
+deactivate CommandResult
+
+EditOrderCommand --> LogicManager : r
+deactivate EditOrderCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

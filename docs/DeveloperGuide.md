@@ -353,6 +353,7 @@ The following classes and methods have been added to support the implementation 
 This feature allows users to edit Orders objects in our application.
 
 The following sequence diagram describes the flow:
+![EditOrderSequenceDiagram.png](images%2FEditOrderSequenceDiagram.png)
 
 The following classes and methods have been added to support the implementation of this feature:
 
