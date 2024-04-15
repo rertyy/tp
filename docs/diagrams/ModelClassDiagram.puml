@@ -42,7 +42,7 @@ ModelManager -left-> "1" BookKeeper
 ModelManager -right-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-BookKeeper *--> "1" UniqueClientList
+BookKeeper *--> "1filtered" UniqueClientList
 UniqueClientList --> "~* all" Client
 Client *--> Name
 Client *--> Phone
@@ -56,14 +56,17 @@ Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address
 Address -[hidden]right-> Email
 
-Client "1" <--> "~*\t\n\n\n\n\n" Order
+Client "1" <--> "*" Order: "    "
 
+Tag --[hidden]right--> Order : ""
 Order *--> OrderDate
 Order *--> Deadline
 Order *--> Price
 Order *--> Description
 Order *--> Status
 
-ModelManager --> "                                ~* filtered\n\n" Order
-ModelManager --> "      ~* filtered" Client
+Client -[hidden]up-> "~*filtered" I
+
+ModelManager --> "~* filtered\n" Order : "      "
+ModelManager --> "~*" Client : "  "
 @enduml
