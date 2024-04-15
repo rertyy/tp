@@ -493,29 +493,25 @@ _{Explain here how the data archiving feature will be implemented}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …  | I want to …                                                                 | So that I can…                                                                                                  |
-|----------|---------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
-| `* * *`  | Florist | easily add new clients to my bookkeeper                                     | keep track of all my clients' information in one place.                                                         |
-| `* * *`  | Florist | have a find function                                                        | quickly find specific customers when I need to reference their details.                                         |
-| `* * *`  | Florist | be accessible via a command-line interface                                  | efficiently manage my customer list without navigating through complex menus.                                   |
-| `* * *`  | Florist | be cost-effective and easy to use                                           | maximize productivity without investing in expensive CRM systems.                                               |
-| `* * *`  | Florist | be able to create orders for my clients                                     | record all of my clients' orders and take note of their respective deadlines.                                   | 
-| `* * *`  | Florist | record the received date of each order                                      | track order history and prioritize tasks effectively.                                                           | 
-| `* * *`  | Florist | edit client information                                                     | keep client details up-to-date.                                                                                 |
-| `* * *`  | Florist | automatically sort orders by deadline                                       | prioritize and manage them efficiently without manual sorting.                                                  |
-| `* * *`  | Florist | edit existing orders                                                        | accommodate changes requested by clients or correct any inaccuracies, ensuring order accuracy and satisfaction. |
-| `* * *`  | Florist | delete orders from the system in case of duplicate entries or cancellations | maintain accurate records and clutter the order list.                                                           |
-| `* * *`  | Florist | delete client records from database                                         | keep my client list updated.                                                                                    |
-| `* * *`  | Florist | link each order to its corresponding client                                 | easily access client information associated with each other, facilitating personalized service.                 |
-| `* *`    | Florist | access list of all client information in a single view                      | quickly review and manage my client base.                                                                       |  
-| `* *`    | Florist | have a desktop-friendly interface                                           | easily access customer information on the go and process orders efficiently.                                    | 
-| `*`      | Florist | provide insights into customer demographics and preferences                 | tailor my product offerings and marketing campaigns to target specific audiences effectively.                   |
-| `*`      | Florist | provide analytics and insights on customer behavior                         | continuously improve my products and services to meet customer needs based on purchase patterns and feedback.   |
-| `*`      | Florist | provide insights into customer satisfaction through feedback and reviews    | address any concerns and improve the overall customer experience.                                               |
-| `*`      | Florist | offer customizable tags or labels for customers                             | segment my audience and target specific groups with tailored marketing campaigns.                               |
-| `*`      | Florist | have a good out of the box experience                                       | immediately use the application without needing to configure it for my own needs.                               |
-| `*`      | Florist | track the status of each order                                              | provide updates to clients and manage expectations.                                                             |
-| `*`      | Florist | assign a price to each order                                                | have accurate record-keeping and financial management.                                                          |
+| Priority | As a …  | I want to …                                                                                   | So that I can…                                                                                                  |
+|----------|---------|-----------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
+| `* * *`  | Florist | easily add new clients to my bookkeeper                                                       | keep track of all my clients' information in one place.                                                         |
+| `* * *`  | Florist | have a find function                                                                          | quickly find specific customers when I need to reference their details.                                         |
+| `* * *`  | Florist | be accessible via a command-line interface                                                    | efficiently manage my customer list without navigating through complex menus.                                   |
+| `* * *`  | Florist | be cost-effective and easy to use                                                             | maximize productivity without investing in expensive CRM systems.                                               |
+| `* * *`  | Florist | be able to create orders for my clients                                                       | record all of my clients' orders and take note of their respective deadlines.                                   | 
+| `* * *`  | Florist | record the received date of each order                                                        | track order history and prioritize tasks effectively.                                                           | 
+| `* * *`  | Florist | edit client information                                                                       | keep client details up-to-date.                                                                                 |
+| `* * *`  | Florist | automatically sort orders by deadline                                                         | prioritize and manage them efficiently without manual sorting.                                                  |
+| `* * *`  | Florist | edit existing orders                                                                          | accommodate changes requested by clients or correct any inaccuracies, ensuring order accuracy and satisfaction. |
+| `* * *`  | Florist | delete orders from the system in case of duplicate entries or cancellations                   | maintain accurate records and clutter the order list.                                                           |
+| `* * *`  | Florist | delete client from the client list                                                            | keep my client list updated.                                                                                    |
+| `* * *`  | Florist | link each order to its corresponding client                                                   | easily access client information associated with each other, facilitating personalized services.                |
+| `* *`    | Florist | offer customizable tags or labels for customers                                               | segment my audience and target specific groups with tailored marketing campaigns.                               |
+| `* *`    | Florist | track the status of each order                                                                | provide updates to clients and manage expectations.                                                             |
+| `* *`    | Florist | assign a price to each order                                                                  | have accurate record-keeping and financial management.                                                          |
+| `* *`    | Florist | view a list of all clients along with their contact information and assigned tag in one place | access and reference to client details quickly.                                                                 |
+| `*`      | Florist | have a good out of the box experience                                                         | immediately use the application without needing to configure it for my own needs.                               |
 
 ### Use cases
 
@@ -613,18 +609,8 @@ otherwise)
 * 2a. No client is found.
 
     * 2a1. BookKeeper shows a message indicating no client is found.
-    * 2a2. BookKeeper shows the list of clients with similar names.
 
-  Use case ends.
-
-**Use case: Sort by order**
-
-**MSS**
-
-1. User requests to sort by order.
-2. BookKeeper shows a list of clients sorted by the given order.
-
-   Use case ends.
+  Use case end
 
 **Use case: Show help**
 
@@ -664,14 +650,9 @@ otherwise)
 
 **Extensions**
 
-* 2a. The order already exists.
+* 2a. The order details are invalid.
 
     * 2a1. BookKeeper shows an error message.
-
-      Use case resumes at step 1.
-* 2b. The order details are invalid.
-
-    * 2b1. BookKeeper shows an error message.
 
       Use case resumes at step 1.
 
@@ -832,12 +813,12 @@ to provide more descriptive labels and organize content effectively.
 
 4. Resolution Support
 
-**Current**: Our application currently only support a single type of screen resolution, limiting compatibility
-with various devices and user preferences.
+**Current**: Our application is currently only optimised for the recommended screen resolution and screen scale
+for your device. This may limit compatibility with different user preferences. It is usable but not optimal for a small
+margin of error from your recommended screen resolutions and scale.
 
-**Future**: Recognizing the importance of catering to diverse user needs, we plan to expand our resolution support
-to support default screen resolution such as 1280x720. This will ensure compatibility across a broader range of
-devices, enhancing accessibility and user experience.
+**Future**: We plan to expand our support for various screen resolutions and screen scales by including custom scaling,
+which will enhance accessibility and improve the user experience.
 
 5. Allow filtering of orders based on displayed customers.
 
