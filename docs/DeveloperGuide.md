@@ -19,27 +19,25 @@ title: Developer Guide
 * [Common classes](#common-classes)
 
 [Implementation](#implementation)
-
-* [Adding the Order methods](#adding-an-order-feature)
-* [View Orders feature](#view-orders-feature)
-* [Proposed Data archiving](#proposed-data-archiving)
+* [Order Class](#order-class)
+* [Storing an Order](#storing-an-order)
+* [Adding an Order Feature](#adding-an-order-feature)
+* [Deleting an Order Feature](#deleting-an-order-feature)
+* [Editing an Order Feature](#editing-an-order-feature)
 
 [Documentation, logging, testing, configuration, dev-ops](#documentation-logging-testing-configuration-dev-ops)
 
 [Appendix: Requirements](#appendix-requirements)
-
-* [Product scope](#product-scope)
-* [User stories](#user-stories)
-
-[Use cases](#use-cases)
-
-[Non-Functional Requirements](#non-functional-requirements)
+* [Product Scope](#product-scope)
+* [User Stories](#user-stories)
+* [Use Cases](#use-cases)
+* [Non-Functional Requirements](#non-functional-requirements)
 
 [Glossary](#glossary)
 
 [Appendix: Instructions for manual testing](#appendix-instructions-for-manual-testing)
 
-[Appendix: Planned Enhancements](#appendix-planned-enhancements)
+[Appendix: Planned Enhancements](#appendix-planned-future-enhancements-beyond-v14)
 
 
 --------------------------------------------------------------------------------------------------------------------
