@@ -18,5 +18,5 @@ Client *--> Name
 Client *--> Phone
 Client *--> Email
 Client *--> Address
-Client <--> Order
+Client "1" <----right----> "*" Order :   "     "
 @enduml

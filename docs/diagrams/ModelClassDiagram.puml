@@ -57,7 +57,7 @@ Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address
 Address -[hidden]right-> Email
 
-Client "1" <--> "*" Order
+Client "1" <--> "~*\t\n\n\n\n\n" Order
 
 Order *--> OrderDate
 Order *--> Deadline
