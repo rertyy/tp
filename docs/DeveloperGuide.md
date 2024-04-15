@@ -493,34 +493,29 @@ _{Explain here how the data archiving feature will be implemented}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …  | I want to …                                                              | So that I can…                                                                                                |
-|----------|---------|--------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|
-| `* * *`  | Florist | easily add new clients to my bookkeeper                                  | keep track of all my clients' information in one place.                                                       |
-| `* * *`  | Florist | have a search function                                                   | quickly find specific customers when I need to reference their details.                                       |
-| `* * *`  | Florist | be accessible via a command-line interface                               | efficiently manage my customer list without navigating through complex menus.                                 |
-| `* * *`  | Florist | have customizable fields                                                 | record specific details about each customer, such as their favorite colors or special requests.               |
-| `* * *`  | Florist | be cost-effective and easy to use                                        | maximize productivity without investing in expensive CRM systems.                                             |
-| `* * *`  | Florist | be able to create orders for my clients                                  | record all of my clients' orders and take note of their respective deadlines.                                 |
-| `* *`    | Florist | have secure access controls and permissions settings                     | restrict sensitive information and ensure data privacy compliance.                                            |
-| `* *`    | Florist | categorize my client                                                     | tailor my marketing efforts accordingly based on factors like their preferred flowers or past purchases.      |
-| `* *`    | Florist | generate reports on customer activity                                    | analyze trends and make informed business decisions based on order history and frequency of purchases.        |
-| `* *`    | Florist | have a reminder feature                                                  | stay organized and follow up with customers on important dates, such as birthdays or anniversaries.           |
-| `* *`    | Florist | have customizable templates for invoices and receipts                    | easily generate and send professional-looking documents to my customers.                                      |
-| `* *`    | Florist | have a notes section for each client                                     | record specific preferences and requirements for their projects.                                              |
-| `* *`    | Florist | integrate with accounting software                                       | easily track expenses related to each customer and maintain accurate financial records.                       |
-| `*`      | Florist | have a mobile-friendly interface                                         | easily access customer information on the go and process orders efficiently.                                  |
-| `*`      | Florist | integrate with my email client                                           | send personalized messages and promotions to my customers directly from the platform.                         |
-| `*`      | Florist | integrate with e-commerce platforms                                      | automatically sync customer data and manage orders efficiently when participating in online marketplaces.     |
-| `*`      | Florist | track communication history with clients                                 | provide personalized and timely customer service including emails and phone calls.                            |
-| `*`      | Florist | support multiple user accounts with shared access                        | my team members can collaborate on managing customer relationships.                                           |
-| `*`      | Florist | have a scheduling feature                                                | manage registrations and communicate updates with attendees seamlessly.                                       |
-| `*`      | Florist | have a feature for scanning and capturing customer contact information   | grow my mailing list and follow up with potential leads quickly.                                              |
-| `*`      | Florist | integrate with social media platforms                                    | easily connect with customers and engage with them through various channels.                                  |
-| `*`      | Florist | provide insights into customer demographics and preferences              | tailor my product offerings and marketing campaigns to target specific audiences effectively.                 |
-| `*`      | Florist | provide analytics and insights on customer behavior                      | continuously improve my products and services to meet customer needs based on purchase patterns and feedback. |
-| `*`      | Florist | provide insights into customer satisfaction through feedback and reviews | address any concerns and improve the overall customer experience.                                             |
-| `*`      | Florist | offer customizable tags or labels for customers                          | segment my audience and target specific groups with tailored marketing campaigns.                             |
-| `*`      | Florist | have a good out of the box experience                                    | immediately use the application without needing to configure it for my own needs.                             |
+| Priority | As a …  | I want to …                                                                 | So that I can…                                                                                                  |
+|----------|---------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
+| `* * *`  | Florist | easily add new clients to my bookkeeper                                     | keep track of all my clients' information in one place.                                                         |
+| `* * *`  | Florist | have a find function                                                        | quickly find specific customers when I need to reference their details.                                         |
+| `* * *`  | Florist | be accessible via a command-line interface                                  | efficiently manage my customer list without navigating through complex menus.                                   |
+| `* * *`  | Florist | be cost-effective and easy to use                                           | maximize productivity without investing in expensive CRM systems.                                               |
+| `* * *`  | Florist | be able to create orders for my clients                                     | record all of my clients' orders and take note of their respective deadlines.                                   | 
+| `* * *`  | Florist | record the received date of each order                                      | track order history and prioritize tasks effectively.                                                           | 
+| `* * *`  | Florist | edit client information                                                     | keep client details up-to-date.                                                                                 |
+| `* * *`  | Florist | automatically sort orders by deadline                                       | prioritize and manage them efficiently without manual sorting.                                                  |
+| `* * *`  | Florist | edit existing orders                                                        | accommodate changes requested by clients or correct any inaccuracies, ensuring order accuracy and satisfaction. |
+| `* * *`  | Florist | delete orders from the system in case of duplicate entries or cancellations | maintain accurate records and clutter the order list.                                                           |
+| `* * *`  | Florist | delete client records from database                                         | keep my client list updated.                                                                                    |
+| `* * *`  | Florist | link each order to its corresponding client                                 | easily access client information associated with each other, facilitating personalized service.                 |
+| `* *`    | Florist | access list of all client information in a single view                      | quickly review and manage my client base.                                                                       |  
+| `* *`    | Florist | have a desktop-friendly interface                                           | easily access customer information on the go and process orders efficiently.                                    | 
+| `*`      | Florist | provide insights into customer demographics and preferences                 | tailor my product offerings and marketing campaigns to target specific audiences effectively.                   |
+| `*`      | Florist | provide analytics and insights on customer behavior                         | continuously improve my products and services to meet customer needs based on purchase patterns and feedback.   |
+| `*`      | Florist | provide insights into customer satisfaction through feedback and reviews    | address any concerns and improve the overall customer experience.                                               |
+| `*`      | Florist | offer customizable tags or labels for customers                             | segment my audience and target specific groups with tailored marketing campaigns.                               |
+| `*`      | Florist | have a good out of the box experience                                       | immediately use the application without needing to configure it for my own needs.                               |
+| `*`      | Florist | track the status of each order                                              | provide updates to clients and manage expectations.                                                             |
+| `*`      | Florist | assign a price to each order                                                | have accurate record-keeping and financial management.                                                          |
 
 ### Use cases
 
@@ -813,7 +808,7 @@ Team size: 4
 
 **Current**: Our edit command function's error messages for both client and order are too general, not specifying
 the exact issue with the input command causing the error. They address potential errors rather than pinpointing the
-specific one the user is facing. This ambiguity extends to other functions like add and delete command as well.
+specific one the user is facing.
 
 **Future**: We plan to implement more specific error messages tailored to the respective errors encountered. This will
 offer clearer guidance to users, helping them identify and resolve issues promptly.
@@ -832,8 +827,8 @@ enabling users to identify the problem immediately and take appropriate action.
 **Current**: Our application now imposes limitations on tag length, restricting users from inputting longer tags,
 which may hinder organization and labeling efforts.
 
-**Future**: To address this, we aim to extend the maximum length of tags supported within the system. This enhancement
-will empower users to provide more descriptive labels and organize content more effectively, enhancing usability.
+**Future**: To address this, we aim to increase the maximum length of tags supported within the system, enabling users
+to provide more descriptive labels and organize content effectively.
 
 4. Resolution Support
 
@@ -841,7 +836,7 @@ will empower users to provide more descriptive labels and organize content more 
 with various devices and user preferences.
 
 **Future**: Recognizing the importance of catering to diverse user needs, we plan to expand our resolution support
-to include additional screen resolutions such as 1280x720. This will ensure compatibility across a broader range of
+to support default screen resolution such as 1280x720. This will ensure compatibility across a broader range of
 devices, enhancing accessibility and user experience.
 
 5. Allow filtering of orders based on displayed customers.
