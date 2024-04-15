@@ -509,9 +509,8 @@ as well as the process in which the application is run
 **JSON (Javascript Object Notation)** - a file format used to store data which is understandable
 for both end users and computers. BookKeeper stores its data inside bookkeeper.json.
 
-**Command Line Interface (CLI)**
-![Ui](images/CLI.png)
-A user interface that allows users to interact with the computer software by typing commands into the console.
+**Command Line Interface (CLI)** - a user interface that allows users to interact with the computer software by typing
+commands into the console.
 The CLI is one method which BookKeeper application can be launched
 
 **CRM (Customer Relationship Management)** - a program that simplifies managing of clientele and their needs.
