@@ -731,13 +731,12 @@ specified otherwise)
 
 ## Glossary
 
-* **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: A contact detail that is not meant to be shared with others
 * **Application architecture**: Describes the patterns and techniques used to design and build an application
-* **System administrators**: Professionals responsible for managing, configuring, and ensuring the proper operation of
-  computer systems and servers
 * **Detailed logs**: Records that track events, operations, errors, and other significant activities that occur within a
   software system or application.
+* **Mainstream OS**: Windows, Linux, Unix, MacOS
+* **System administrators**: Professionals responsible for managing, configuring, and ensuring the proper operation of
+  computer systems and servers
 
 --------------------------------------------------------------------------------------------------------------------
 
