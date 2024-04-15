@@ -1034,9 +1034,9 @@ Team size: 4
    not displaying correctly and unrealistic values being entered. For example, we will limit the length of names and
    constrain the size of numerical values like order prices to ensure data integrity and usability.
 
-* E.g. do not input a name that is too long, as it may not be displayed correctly.
-* E.g. do not input an Order Price that is unrealistically large for flower orders e.g. 9 billion (
-  9,000,000,000).
+   * E.g. do not input a name that is too long, as it may not be displayed correctly.
+   * E.g. do not input an Order Price that is unrealistically large for flower orders e.g. 9 billion (
+     9,000,000,000).
 
 8. Supporting names with special characters.  
    **Current**: Our application does not support names with special characters, such as acute accents, (e.g. Amélie) or
