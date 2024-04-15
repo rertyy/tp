@@ -820,9 +820,9 @@ offer clearer guidance to users, helping them identify and resolve issues prompt
 
 2. Enhanced Error Messaging for Wrong Indices with Missing Fields
 
-**Current**: Similarly, currently our error messages for wrong indices and missing fields in the edit command lack
+**Current**: Currently our error messages for wrong indices and missing fields in the edit command lack
 specificity. We provide a generic message like "at least one field to edit must be provided," without indicating which
-field is missing or if there's an issue with the index.
+field is missing or if there is an issue with the index.
 
 **Future**: We plan to refine these error messages to explicitly highlight the missing field or incorrect index,
 enabling users to identify the problem immediately and take appropriate action.
