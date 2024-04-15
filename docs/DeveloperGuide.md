@@ -238,7 +238,6 @@ This section describes some noteworthy details on how certain features are imple
 ### Order class
 
 ![BetterOrderClassDiagram.png](images/BetterOrderClassDiagram.png)
-![OrderStatusEnumClassDiagram.png](images/OrderStatusEnumClassDiagram.png)
 
 `Order` is a new class added to encapsulate the logic of an Order. It is related to `Client`
 class, and contains the following attributes:
@@ -249,12 +248,17 @@ class, and contains the following attributes:
 4. Description
 5. Status
 
+Each of these attributes are its own class, and they serve the following purposes:
 The `OrderDate` is the time in which the order is created.  
 The `Deadline` is the time in which the order is due, which is specified by the user.  
 The `Price` is a `Double` type where it represents the price for the order, and follows a numerical format of 2 decimal
 places.  
-The `Description` a `String` type which holds the description of the Order.
-The `Status` is backed by an enum StatusEnum consisting of 3 values `PENDING`, `COMPLETED`, `CANCELED`.
+The `Description` is a `String` type which holds the description of the Order.
+
+![OrderStatusEnumClassDiagram.png](images/OrderStatusEnumClassDiagram.png)
+
+The `Status` is the current status of the respective Order. This class backed by an enum StatusEnum consisting of 3
+values `PENDING`, `COMPLETED`, `CANCELED`.
 
 ### Storing an Order
 
