@@ -238,7 +238,6 @@ This section describes some noteworthy details on how certain features are imple
 ### Order class
 
 ![BetterOrderClassDiagram.png](images/BetterOrderClassDiagram.png)
-![OrderStatusEnumClassDiagram.png](images/OrderStatusEnumClassDiagram.png)
 
 `Order` is a new class added to encapsulate the logic of an Order. It is related to `Client`
 class, and contains the following attributes:
@@ -249,12 +248,17 @@ class, and contains the following attributes:
 4. Description
 5. Status
 
+Each of these attributes are its own class, and they serve the following purposes:
 The `OrderDate` is the time in which the order is created.  
 The `Deadline` is the time in which the order is due, which is specified by the user.  
 The `Price` is a `Double` type where it represents the price for the order, and follows a numerical format of 2 decimal
 places.  
-The `Description` a `String` type which holds the description of the Order.
-The `Status` is backed by an enum StatusEnum consisting of 3 values `PENDING`, `COMPLETED`, `CANCELED`.
+The `Description` is a `String` type which holds the description of the Order.
+
+![OrderStatusEnumClassDiagram.png](images/OrderStatusEnumClassDiagram.png)
+
+The `Status` is the current status of the respective Order. This class backed by an enum StatusEnum consisting of 3
+values `PENDING`, `COMPLETED`, `CANCELED`.
 
 ### Storing an Order
 
@@ -289,7 +293,7 @@ mark a significant step forward in enhancing the robustness and flexibility of o
 This feature allows users to add orders to our application for viewing and storage.
 
 The sequence diagram below showcases the interactions within the application
-![AddOrderSequenceDiagram.png](images%2FAddOrderSequenceDiagram.png)
+![AddOrderSequenceDiagram.png](images/AddOrderSequenceDiagram.png)
 
 An `ObservableList` has been added to the `ModelManager` for the sole purpose of displaying our `Order` objects.
 Additionally, the following classes and methods have been added to support the implementation of this feature:
@@ -321,7 +325,7 @@ Additionally, the following classes and methods have been added to support the i
 This feature allows users to delete Orders from our application permanently.
 
 The sequence diagram below showcases the interactions within the application:
-![DeleteOrderSequenceDiagram.png](images%2FDeleteOrderSequenceDiagram.png)
+![DeleteOrderSequenceDiagram.png](images/DeleteOrderSequenceDiagram.png)
 
 This will delete both the `Order` in the `ObservableList` for orders and from the `Client` object as well.
 
@@ -370,7 +374,7 @@ The following classes and methods have been added to support the implementation 
    These prefixes are optional, and not including them will use the current `Order` object details.
 3. `EditOrderCommandParser#EditOrderDescriptor`  
    This is a nested static class within the `EditOrderCommand` class that manages the `Order` information.
-   It's role is to temporarily hold the values of `Order` information that may or may not be updated. It acts as a data
+   Its role is to temporarily hold the values of `Order` information that may or may not be updated. It acts as a data
    transfer object that contains the details to be edited by the user.
    Additionally, it helps to validate the fields to ensure that there are only valid values will be accepted, and to
    parse and apply the edits.
@@ -437,39 +441,30 @@ the requirements of:
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …  | I want to …                                                              | So that I can…                                                                                                |
-|----------|---------|--------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|
-| `* * *`  | Florist | easily add new clients to my bookkeeper                                  | keep track of all my clients' information in one place.                                                       |
-| `* * *`  | Florist | have a search function                                                   | quickly find specific customers when I need to reference their details.                                       |
-| `* * *`  | Florist | be accessible via a command-line interface                               | efficiently manage my customer list without navigating through complex menus.                                 |
-| `* * *`  | Florist | have customizable fields                                                 | record specific details about each customer, such as their favorite colors or special requests.               |
-| `* * *`  | Florist | be cost-effective and easy to use                                        | maximize productivity without investing in expensive CRM systems.                                             |
-| `* * *`  | Florist | be able to create orders for my clients                                  | record all of my clients' orders and take note of their respective deadlines.                                 |
-| `* *`    | Florist | have secure access controls and permissions settings                     | restrict sensitive information and ensure data privacy compliance.                                            |
-| `* *`    | Florist | categorize my client                                                     | tailor my marketing efforts accordingly based on factors like their preferred flowers or past purchases.      |
-| `* *`    | Florist | generate reports on customer activity                                    | analyze trends and make informed business decisions based on order history and frequency of purchases.        |
-| `* *`    | Florist | have a reminder feature                                                  | stay organized and follow up with customers on important dates, such as birthdays or anniversaries.           |
-| `* *`    | Florist | have customizable templates for invoices and receipts                    | easily generate and send professional-looking documents to my customers.                                      |
-| `* *`    | Florist | have a notes section for each client                                     | record specific preferences and requirements for their projects.                                              |
-| `* *`    | Florist | integrate with accounting software                                       | easily track expenses related to each customer and maintain accurate financial records.                       |
-| `*`      | Florist | have a mobile-friendly interface                                         | easily access customer information on the go and process orders efficiently.                                  |
-| `*`      | Florist | integrate with my email client                                           | send personalized messages and promotions to my customers directly from the platform.                         |
-| `*`      | Florist | integrate with e-commerce platforms                                      | automatically sync customer data and manage orders efficiently when participating in online marketplaces.     |
-| `*`      | Florist | track communication history with clients                                 | provide personalized and timely customer service including emails and phone calls.                            |
-| `*`      | Florist | support multiple user accounts with shared access                        | my team members can collaborate on managing customer relationships.                                           |
-| `*`      | Florist | have a scheduling feature                                                | manage registrations and communicate updates with attendees seamlessly.                                       |
-| `*`      | Florist | have a feature for scanning and capturing customer contact information   | grow my mailing list and follow up with potential leads quickly.                                              |
-| `*`      | Florist | integrate with social media platforms                                    | easily connect with customers and engage with them through various channels.                                  |
-| `*`      | Florist | provide insights into customer demographics and preferences              | tailor my product offerings and marketing campaigns to target specific audiences effectively.                 |
-| `*`      | Florist | provide analytics and insights on customer behavior                      | continuously improve my products and services to meet customer needs based on purchase patterns and feedback. |
-| `*`      | Florist | provide insights into customer satisfaction through feedback and reviews | address any concerns and improve the overall customer experience.                                             |
-| `*`      | Florist | offer customizable tags or labels for customers                          | segment my audience and target specific groups with tailored marketing campaigns.                             |
-| `*`      | Florist | have a good out of the box experience                                    | immediately use the application without needing to configure it for my own needs.                             |
+| Priority | As a …  | I want to …                                                                                   | So that I can…                                                                                                  |
+|----------|---------|-----------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
+| `* * *`  | Florist | be abe to easily add new clients to my client tracker                                         | keep track of all my clients' information in one place.                                                         |
+| `* * *`  | Florist | have a client management system that has a find function                                      | quickly find specific customers when I need to reference their details.                                         |
+| `* * *`  | Florist | be able to easily key in commands via a command-line interface                                | efficiently manage my customer list without navigating through complex menus.                                   |
+| `* * *`  | Florist | have an application that is cost-effective and easy to use                                    | maximize productivity without investing in expensive CRM systems.                                               |
+| `* * *`  | Florist | be able to add a new order to my existing clients                                             | record all of my clients' orders and take note of their respective deadlines.                                   | 
+| `* * *`  | Florist | record the received date of each order                                                        | track order history and prioritize tasks effectively.                                                           | 
+| `* * *`  | Florist | edit client information                                                                       | keep client details up-to-date.                                                                                 |
+| `* * *`  | Florist | automatically sort orders by deadline                                                         | prioritize and manage them efficiently without manual sorting.                                                  |
+| `* * *`  | Florist | edit existing orders                                                                          | accommodate changes requested by clients or correct any inaccuracies, ensuring order accuracy and satisfaction. |
+| `* * *`  | Florist | delete orders from the system in case of duplicate entries or cancellations                   | maintain accurate records and clutter the order list.                                                           |
+| `* * *`  | Florist | delete client from the client list                                                            | keep my client list updated.                                                                                    |
+| `* * *`  | Florist | link each order to its corresponding client                                                   | easily access client information associated with each other, facilitating personalized services.                |
+| `* *`    | Florist | offer customizable tags or labels for customers                                               | segment my audience and target specific groups with tailored marketing campaigns.                               |
+| `* *`    | Florist | track the status of each order                                                                | provide updates to clients and manage expectations.                                                             |
+| `* *`    | Florist | assign a price to each order                                                                  | have accurate record-keeping and financial management.                                                          |
+| `* *`    | Florist | view a list of all clients along with their contact information and assigned tag in one place | access and reference to client details quickly.                                                                 |
+| `*`      | Florist | have a good out of the box experience                                                         | immediately use the application without needing to configure it for my own needs.                               |
 
 ## Use cases
 
-(For all use cases below, the **System** is the `BookKeeper` and the **Actor** is the `user`, unless specified
-otherwise)
+(For all use cases below, the **System** is the `BookKeeper` application and the **Actor** is the `user`, unless
+specified otherwise)
 
 ### **Use case: Delete a client**
 
@@ -595,14 +590,9 @@ otherwise)
 
 **Extensions**
 
-* 2a. The order already exists.
+* 2a. The order details are invalid.
 
     * 2a1. BookKeeper shows an error message.
-
-      Use case resumes at step 1.
-* 2b. The order details are invalid.
-
-    * 2b1. BookKeeper shows an error message.
 
       Use case resumes at step 1.
 
@@ -627,11 +617,6 @@ otherwise)
 * 3a. The order details are invalid.
 
     * 3a1. BookKeeper shows an error message.
-
-      Use case resumes at step 2.
-* 3b. The order details are unchanged.
-
-    * 3b1. BookKeeper shows a message indicating no changes are made.
 
       Use case resumes at step 2.
 
@@ -677,13 +662,12 @@ otherwise)
 
 ## Glossary
 
-* **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: A contact detail that is not meant to be shared with others
 * **Application architecture**: Describes the patterns and techniques used to design and build an application
-* **System administrators**: Professionals responsible for managing, configuring, and ensuring the proper operation of
-  computer systems and servers
 * **Detailed logs**: Records that track events, operations, errors, and other significant activities that occur within a
   software system or application.
+* **Mainstream OS**: Windows, Linux, Unix, MacOS
+* **System administrators**: Professionals responsible for managing, configuring, and ensuring the proper operation of
+  computer systems and servers
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -786,9 +770,9 @@ Command: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
     * Names only accept 0-9 and a-z and are case-sensitive.
     * Two persons with the same name are not allowed, but two persons with the same name but different cases are
       allowed.
-    * Phone number must be numeric and at least 3 numbers. It must not contain spaces “ “, brackets `()` or hyphens
+    * Phone number must be numeric and at least 3 numbers. It must not contain spaces " ", brackets `()` or hyphens
       `-`, plus `+` , or other symbols.
-    * Emails must not have consecutive special characters. E.g. “john..doe@example.com” is not accepted.
+        * Emails must not have consecutive special characters. E.g. “john..doe@example.com” is not accepted.
 
 Expected Output:
 
@@ -982,33 +966,74 @@ Expected Output in the Command Output Box:
 * `Edited Order: Deadline: 23-07-2024 00:33; Date Received: 15-04-2024 12:52; Details: 1xRoses`
 * Note: The details of the edited order will correspond to the details specified in the command.
 
-## **Appendix: Planned Enhancements**
+## **Appendix: Planned Future Enhancements (Beyond v1.4)**
+
+Team size: 4
 
 1. Enhanced Error Messaging
-    * Implementing more specific error messages for the "edit" and "editOrder" functions to provide clearer guidance
-      to users encountering issues.
+
+**Current**: Our edit command function's error messages for both client and order are too general, not specifying
+the exact issue with the input command causing the error. They address potential errors rather than pinpointing the
+specific one the user is facing.
+
+**Future**: We plan to implement more specific error messages tailored to the respective errors encountered. This will
+offer clearer guidance to users, helping them identify and resolve issues promptly.
+
 2. Enhanced Error Messaging for Wrong Indices with Missing Fields
-    * For the `edit` command, if the user fills in 0 fills but an invalid index, the error message is "At least one
-      field to edit must be provided."
-    * This will be changed to note the invalid index in the future.
+
+**Current**: Currently our error messages for wrong indices and missing fields in the edit command lack
+specificity. We provide a generic message like "at least one field to edit must be provided," without indicating which
+field is missing or if there is an issue with the index.
+
+**Future**: We plan to refine these error messages to explicitly highlight the missing field or incorrect index,
+enabling users to identify the problem immediately and take appropriate action.
+
 3. Extended Tag Length and Error Refinement
-    * Increase the maximum length of tags supported within the system, enabling users to provide more descriptive labels
-      and organize content effectively.
+
+**Current**: Our application now imposes limitations on tag length, restricting users from inputting longer tags,
+which may hinder organization and labeling efforts.
+
+**Future**: To address this, we aim to increase the maximum length of tags supported within the system, enabling users
+to provide more descriptive labels and organize content effectively.
+
 4. Resolution Support
-    * Expand resolution support to include additional screen resolutions such as 1280x720, catering to a broader range
-      of devices and user preferences.
+
+**Current**: Our application is currently only optimised for the recommended screen resolution and screen scale
+for your device. This may limit compatibility with different user preferences. It is usable but not optimal for a small
+margin of error from your recommended screen resolutions and scale.
+
+**Future**: We plan to expand our support for various screen resolutions and screen scales by including custom scaling,
+which will enhance accessibility and improve the user experience.
+
 5. Allow filtering of orders based on displayed customers.
-    * Allow users to filter orders based on the displayed customers, providing a more streamlined and efficient
-      experience for users managing multiple clients.
+
+**Current**: Our application now lacks the functionality to filter orders based on displayed clients,
+which may lead to inefficiencies for users managing multiple clients.
+
+**Future**: We plan to enable users to filter orders based on the displayed client, streamlining the experience
+and improving efficiency for users managing multiple clients simultaneously.
+
 6. Allow adding of multiple users with the same name.
-    * Allow users to add multiple clients with the same name, enabling users to manage multiple clients with similar
-      names more effectively.
+
+**Current**: Currently, our application rejects the addition of multiple clients with the same name
+unless they differ in case sensitivity (e.g., Jane Low and Jane low are acceptable).
+
+**Future**: We intend to enhance our system to allow the addition of multiple clients with identical names,
+recognizing that it is common for clients to share the same name. This improvement will enable users to manage
+multiple clients with similar names more effectively.
+
 7. Relax constraints on field data types
-    * There are constraints on length of values that may prevent overly long fields from being displayed correctly.
-        * E.g. do not input a name that is too long, as it may not be displayed correctly.
-    * There a constraints on size of values due to the innate storage system. Numbers cannot be too large.
-        * E.g. do not input an Order Price that is unrealistically large for flower orders e.g. 9 billion (
-          9,000,000,000).
+
+**Current**: Our application lacks constraints on the data types of input fields, allowing excessively long names
+and unrealistically large values for certain fields like order price.
+
+**Future**: We plan to implement constraints on field data types to prevent issues such as overly long fields
+not displaying correctly and unrealistic values being entered. For example, we will limit the length of names and
+constrain the size of numerical values like order prices to ensure data integrity and usability.
+
+* E.g. do not input a name that is too long, as it may not be displayed correctly.
+* E.g. do not input an Order Price that is unrealistically large for flower orders e.g. 9 billion (
+  9,000,000,000).
 
 ## **Appendix: Effort**
 
@@ -1019,19 +1044,19 @@ functionalities.
 
 ### Challenges Faced
 
-1. *Bidirectional Navigation* - Implementing bidirectional navigation between orders and clients posed a significant
-   challenge. Because orders are linked to clients, any changes to the clients have to be reflected in the orders. Every
-   client has a reference to their orders and each order has a reference to the corresponding client, and displays the
-   name of the corresponding client. When the client's name changes, the order card has to be updated.
-
-2. *Linking Orders List to Clients List* - Establishing a robust linking between the order list and the client list
-   presented difficulties. Due to the bidirectional navigation, when adding or deleting orders for respective clients,
-   each client object had to be updated, and the order display had to be updated. Likewise, when deleting clients, all
-   their orders have to be deleted with them. This required thorough planning and testing.
-
-3. *Collaborative Development* - Each team member had to work on features and functions independently, necessitating
-   close collaboration to ensure seamless integration. Communication was important to minimize merging conflicts and
-   ensure that individual components linked are successfully done without too many merge conflicts or duplicated work.
+1. **Bidirectional Navigation** - Implementing bidirectional navigation between orders and clients posed a significant
+   challenge. Ensuring that
+   modifications to one entity reflected accurately in the other required meticulous attention to detail.
+2. **Linking Orders to Clients** - Establishing a robust linkage between orders and clients presented difficulties,
+   especially during operations
+   like delete or edit. Coordinating changes on both client and order sides to maintain data correctness demanded
+   careful
+   planning and execution.
+3. **Collaborative Development** - Each team member had to work on features and functions independently, necessitating
+   close
+   collaboration to ensure seamless integration. Communication was important to minimize merging conflicts and ensure
+   that
+   individual components linked are successfully done.
 
 ### Effort Required
 
@@ -1049,7 +1074,6 @@ Key achievements include:
 * Implementing bidirectional navigation between client and order entities.
 * Establishing robust linkages between orders and clients, ensuring data consistency throughout.
 * Facilitating collaborative development and integration efforts to deliver a cohesive solution.
-
 
 --------------------------------------------------------------------------------------------------------------------
 
