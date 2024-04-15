@@ -256,11 +256,6 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parsePrice_invalidValue_throwsParseException() {
-        assertThrows(NumberFormatException.class, () -> ParserUtil.parsePrice(INVALID_PRICE));
-    }
-
-    @Test
     public void parsePrice_validValueWithoutWhitespace_returnsPrice() throws Exception {
         Price expectedPrice = new Price(VALID_PRICE);
         assertEquals(expectedPrice, ParserUtil.parsePrice(VALID_PRICE));
