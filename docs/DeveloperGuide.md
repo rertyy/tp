@@ -289,7 +289,7 @@ mark a significant step forward in enhancing the robustness and flexibility of o
 This feature allows users to add orders to our application for viewing and storage.
 
 The sequence diagram below showcases the interactions within the application
-![AddOrderSequenceDiagram.png](images%2FAddOrderSequenceDiagram.png)
+![AddOrderSequenceDiagram.png](images/AddOrderSequenceDiagram.png)
 
 An `ObservableList` has been added to the `ModelManager` for the sole purpose of displaying our `Order` objects.
 Additionally, the following classes and methods have been added to support the implementation of this feature:
@@ -321,7 +321,7 @@ Additionally, the following classes and methods have been added to support the i
 This feature allows users to delete Orders from our application permanently.
 
 The sequence diagram below showcases the interactions within the application:
-![DeleteOrderSequenceDiagram.png](images%2FDeleteOrderSequenceDiagram.png)
+![DeleteOrderSequenceDiagram.png](images/DeleteOrderSequenceDiagram.png)
 
 This will delete both the `Order` in the `ObservableList` for orders and from the `Client` object as well.
 
@@ -1099,7 +1099,6 @@ Key achievements include:
 * Implementing bidirectional navigation between client and order entities.
 * Establishing robust linkages between orders and clients, ensuring data consistency throughout.
 * Facilitating collaborative development and integration efforts to deliver a cohesive solution.
-
 
 --------------------------------------------------------------------------------------------------------------------
 
