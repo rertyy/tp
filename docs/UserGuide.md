@@ -495,6 +495,11 @@ If your changes to the data file makes its format invalid, BookKeeper will disca
 Furthermore, certain edits can cause the BookKeeper to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
 
+### Editing Files within Directory
+
+You are strongly discouraged from editing files other than the data file within the BookKeeper directory. Doing so may
+cause the application to behave unexpectedly.
+
 ## 6. Known issues
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only
