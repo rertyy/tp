@@ -238,7 +238,6 @@ This section describes some noteworthy details on how certain features are imple
 ### Order class
 
 ![BetterOrderClassDiagram.png](images/BetterOrderClassDiagram.png)
-![OrderStatusEnumClassDiagram.png](images/OrderStatusEnumClassDiagram.png)
 
 `Order` is a new class added to encapsulate the logic of an Order. It is related to `Client`
 class, and contains the following attributes:
@@ -249,12 +248,17 @@ class, and contains the following attributes:
 4. Description
 5. Status
 
+Each of these attributes are its own class, and they serve the following purposes:
 The `OrderDate` is the time in which the order is created.  
 The `Deadline` is the time in which the order is due, which is specified by the user.  
 The `Price` is a `Double` type where it represents the price for the order, and follows a numerical format of 2 decimal
 places.  
-The `Description` a `String` type which holds the description of the Order.
-The `Status` is backed by an enum StatusEnum consisting of 3 values `PENDING`, `COMPLETED`, `CANCELED`.
+The `Description` is a `String` type which holds the description of the Order.
+
+![OrderStatusEnumClassDiagram.png](images/OrderStatusEnumClassDiagram.png)
+
+The `Status` is the current status of the respective Order. This class backed by an enum StatusEnum consisting of 3
+values `PENDING`, `COMPLETED`, `CANCELED`.
 
 ### Storing an Order
 
@@ -289,7 +293,7 @@ mark a significant step forward in enhancing the robustness and flexibility of o
 This feature allows users to add orders to our application for viewing and storage.
 
 The sequence diagram below showcases the interactions within the application
-![AddOrderSequenceDiagram.png](images%2FAddOrderSequenceDiagram.png)
+![AddOrderSequenceDiagram.png](images/AddOrderSequenceDiagram.png)
 
 An `ObservableList` has been added to the `ModelManager` for the sole purpose of displaying our `Order` objects.
 Additionally, the following classes and methods have been added to support the implementation of this feature:
@@ -321,7 +325,7 @@ Additionally, the following classes and methods have been added to support the i
 This feature allows users to delete Orders from our application permanently.
 
 The sequence diagram below showcases the interactions within the application:
-![DeleteOrderSequenceDiagram.png](images%2FDeleteOrderSequenceDiagram.png)
+![DeleteOrderSequenceDiagram.png](images/DeleteOrderSequenceDiagram.png)
 
 This will delete both the `Order` in the `ObservableList` for orders and from the `Client` object as well.
 
@@ -370,7 +374,7 @@ The following classes and methods have been added to support the implementation 
    These prefixes are optional, and not including them will use the current `Order` object details.
 3. `EditOrderCommandParser#EditOrderDescriptor`  
    This is a nested static class within the `EditOrderCommand` class that manages the `Order` information.
-   It's role is to temporarily hold the values of `Order` information that may or may not be updated. It acts as a data
+   Its role is to temporarily hold the values of `Order` information that may or may not be updated. It acts as a data
    transfer object that contains the details to be edited by the user.
    Additionally, it helps to validate the fields to ensure that there are only valid values will be accepted, and to
    parse and apply the edits.
@@ -509,8 +513,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ## Use cases
 
-(For all use cases below, the **System** is the `BookKeeper` and the **Actor** is the `user`, unless specified
-otherwise)
+(For all use cases below, the **System** is the `BookKeeper` application and the **Actor** is the `user`, unless
+specified otherwise)
 
 ### **Use case: Delete a client**
 
@@ -727,13 +731,12 @@ otherwise)
 
 ## Glossary
 
-* **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: A contact detail that is not meant to be shared with others
 * **Application architecture**: Describes the patterns and techniques used to design and build an application
-* **System administrators**: Professionals responsible for managing, configuring, and ensuring the proper operation of
-  computer systems and servers
 * **Detailed logs**: Records that track events, operations, errors, and other significant activities that occur within a
   software system or application.
+* **Mainstream OS**: Windows, Linux, Unix, MacOS
+* **System administrators**: Professionals responsible for managing, configuring, and ensuring the proper operation of
+  computer systems and servers
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -836,9 +839,9 @@ Command: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
     * Names only accept 0-9 and a-z and are case-sensitive.
     * Two persons with the same name are not allowed, but two persons with the same name but different cases are
       allowed.
-    * Phone number must be numeric and at least 3 numbers. It must not contain spaces “ “, brackets `()` or hyphens
+    * Phone number must be numeric and at least 3 numbers. It must not contain spaces " ", brackets `()` or hyphens
       `-`, plus `+` , or other symbols.
-    * Emails must not have consecutive special characters. E.g. “john..doe@example.com” is not accepted.
+        * Emails must not have consecutive special characters. E.g. “john..doe@example.com” is not accepted.
 
 Expected Output:
 
@@ -1099,7 +1102,6 @@ Key achievements include:
 * Implementing bidirectional navigation between client and order entities.
 * Establishing robust linkages between orders and clients, ensuring data consistency throughout.
 * Facilitating collaborative development and integration efforts to deliver a cohesive solution.
-
 
 --------------------------------------------------------------------------------------------------------------------
 

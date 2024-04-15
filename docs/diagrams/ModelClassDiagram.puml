@@ -21,7 +21,6 @@ Class Phone
 Class Tag
 
 Class Order
-Class OrderId
 Class OrderDate
 Class Deadline
 Class Price
