@@ -19,27 +19,25 @@ title: Developer Guide
 * [Common classes](#common-classes)
 
 [Implementation](#implementation)
-
-* [Adding the Order methods](#adding-an-order-feature)
-* [View Orders feature](#view-orders-feature)
-* [Proposed Data archiving](#proposed-data-archiving)
+* [Order Class](#order-class)
+* [Storing an Order](#storing-an-order)
+* [Adding an Order Feature](#adding-an-order-feature)
+* [Deleting an Order Feature](#deleting-an-order-feature)
+* [Editing an Order Feature](#editing-an-order-feature)
 
 [Documentation, logging, testing, configuration, dev-ops](#documentation-logging-testing-configuration-dev-ops)
 
 [Appendix: Requirements](#appendix-requirements)
-
-* [Product scope](#product-scope)
-* [User stories](#user-stories)
-
-[Use cases](#use-cases)
-
-[Non-Functional Requirements](#non-functional-requirements)
+* [Product Scope](#product-scope)
+* [User Stories](#user-stories)
+* [Use Cases](#use-cases)
+* [Non-Functional Requirements](#non-functional-requirements)
 
 [Glossary](#glossary)
 
 [Appendix: Instructions for manual testing](#appendix-instructions-for-manual-testing)
 
-[Appendix: Planned Enhancements](#appendix-planned-enhancements)
+[Appendix: Planned Enhancements](#appendix-planned-future-enhancements-beyond-v14)
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -391,47 +389,6 @@ It was done in this manner to adhere to the following design principles:
   ModelManager class creates a seamless and responsive interaction between the backend data structures and the frontend
   user interface.
 
-### View Orders feature
-
-#### Proposed Implementation
-
-The proposed View Orders mechanism is facilitated by `ViewOrdersCommand`. It extends `Command` and implements the
-displaying of all orders that belong to a client.
-
-These operations are exposed in the `BookKeeperParser` class as `BookKeeperParser#parseCommand()`.
-
-Given below is an example usage scenario and how the view orders mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedBookKeeper` will be initialized with the
-initial bookkeeper state, and the `currentStatePointer` pointing to that single bookkeeper state.
-
-Step 2. The user executes `viewOrders` command to view all the orders that they have in BookKeeper. The `viewOrders`
-command calls `Model#updateFilteredOrderList()`, causing bookkeeper to show the list of orders
-that are tracked in the storage of the application. The `viewOrders` command then returns a new `CommandResult`, which
-displays the `MESSAGE_SUCCESS` message, which is "Here are all your orders: ".
-
-#### Design considerations:
-
-**Aspect: How view command executes:**
-
-* **Alternative 1 (current choice):** Retrieves and displays all client orders from the filtered order list.
-    * Pros: Simple and straightforward implementation.
-    * Cons: May result in a slower performance and higher memory usage if the filtered order list is large.
-
-* **Alternative 2:** Implement system for displaying orders and only load a subset of orders at a time.
-    * Pros: Will use less memory (e.g. can use cache mechanisms to store recently accessed orders in memory).
-    * Cons: More complex implementation of storage and memory access.
-
-**Why is it implemented that way**
-
-* This approach is chosen for its simplicity. By utilising the filtered order list maintained by the model, the
-  `viewOrders` command provides a straightforward way to display all orders to the user. It also makes it easier to
-  maintain.
-
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
-
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -620,15 +577,6 @@ specified otherwise)
 
    Use case ends.
 
-### **Use case: Exit the program**
-
-**MSS**
-
-1. User requests to exit the program.
-2. BookKeeper exits.
-
-   Use case ends.
-
 ### **Use case: Add order**
 
 **MSS**
@@ -686,6 +634,15 @@ specified otherwise)
     * 2a1. BookKeeper shows an error message.
 
       Use case resumes at step 1.
+
+### **Use case: Exit the program**
+
+**MSS**
+
+1. User requests to exit the program.
+2. BookKeeper exits.
+
+   Use case ends.
 
 ## Non-Functional Requirements
 
