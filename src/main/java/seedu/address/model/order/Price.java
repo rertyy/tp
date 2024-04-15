@@ -34,7 +34,11 @@ public class Price {
      * @return true if the price is valid
      */
     public static boolean isValidPrice(String test) {
-        return (!test.isEmpty()) && Double.parseDouble(test) >= 0;
+        try {
+            return (!test.isEmpty()) && Double.parseDouble(test) >= 0;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     /**
