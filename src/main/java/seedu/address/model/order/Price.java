@@ -50,7 +50,7 @@ public class Price {
 
     @Override
     public String toString() {
-        return String.format("%.2f", value);
+        return String.format("%.2f", value + 0.0);
     }
 
     @Override
