@@ -257,7 +257,7 @@ The `Description` is a `String` type which holds the description of the Order.
 
 ![OrderStatusEnumClassDiagram.png](images/OrderStatusEnumClassDiagram.png)
 
-The `Status` is the current status of the respective Order. This class backed by an enum StatusEnum consisting of 3
+The `Status` is the current status of the respective Order. This class is backed by an enum, StatusEnum consisting of 3
 values `PENDING`, `COMPLETED`, `CANCELED`.
 
 ### Storing an Order
