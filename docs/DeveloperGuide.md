@@ -867,7 +867,7 @@ multiple clients with similar names more effectively.
 and unrealistically large values for certain fields like order price.
 
 **Future**: We plan to implement constraints on field data types to prevent issues such as overly long fields
-not displaying correctly and unrealistic values being entered. For example, we'll limit the length of names and
+not displaying correctly and unrealistic values being entered. For example, we will limit the length of names and
 constrain the size of numerical values like order prices to ensure data integrity and usability.
 
 * E.g. do not input a name that is too long, as it may not be displayed correctly.
