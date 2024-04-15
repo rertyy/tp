@@ -32,7 +32,7 @@ BookKeeperParser -> AddOrderCommandParser : parse(args)
 activate AddOrderCommandParser
 
 create Order
-AddOrderCommandParser -> Order : parse(args)
+AddOrderCommandParser -> Order : new Order(args)
 activate Order
 Order --> AddOrderCommandParser
 deactivate Order
