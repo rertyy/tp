@@ -970,68 +970,78 @@ Team size: 4
 
 1. Enhanced Error Messaging
 
-**Current**: Our edit command function's error messages for both client and order are too general, not specifying
-the exact issue with the input command causing the error. They address potential errors rather than pinpointing the
-specific one the user is facing.
+   **Current**: Our edit command function's error messages for both client and order are too general, not specifying
+   the exact issue with the input command causing the error. They address potential errors rather than pinpointing the
+   specific one the user is facing.
 
-**Future**: We plan to implement more specific error messages tailored to the respective errors encountered. This will
-offer clearer guidance to users, helping them identify and resolve issues promptly.
+   **Future**: We plan to implement more specific error messages tailored to the respective errors encountered. This
+   will
+   offer clearer guidance to users, helping them identify and resolve issues promptly.
 
 2. Enhanced Error Messaging for Wrong Indices with Missing Fields
 
-**Current**: Currently our error messages for wrong indices and missing fields in the edit command lack
-specificity. We provide a generic message like "at least one field to edit must be provided," without indicating which
-field is missing or if there is an issue with the index.
+   **Current**: Currently our error messages for wrong indices and missing fields in the edit command lack
+   specificity. We provide a generic message like "at least one field to edit must be provided," without indicating
+   which
+   field is missing or if there is an issue with the index.
 
-**Future**: We plan to refine these error messages to explicitly highlight the missing field or incorrect index,
-enabling users to identify the problem immediately and take appropriate action.
+   **Future**: We plan to refine these error messages to explicitly highlight the missing field or incorrect index,
+   enabling users to identify the problem immediately and take appropriate action.
 
 3. Extended Tag Length and Error Refinement
 
-**Current**: Our application now imposes limitations on tag length, restricting users from inputting longer tags,
-which may hinder organization and labeling efforts.
+   **Current**: Our application now imposes limitations on tag length, restricting users from inputting longer tags,
+   which may hinder organization and labeling efforts.
 
-**Future**: To address this, we aim to increase the maximum length of tags supported within the system, enabling users
-to provide more descriptive labels and organize content effectively.
+   **Future**: To address this, we aim to increase the maximum length of tags supported within the system, enabling
+   users
+   to provide more descriptive labels and organize content effectively.
 
 4. Resolution Support
 
-**Current**: Our application is currently only optimised for the recommended screen resolution and screen scale
-for your device. This may limit compatibility with different user preferences. It is usable but not optimal for a small
-margin of error from your recommended screen resolutions and scale.
+   **Current**: Our application is currently only optimised for the recommended screen resolution and screen scale
+   for your device. This may limit compatibility with different user preferences. It is usable but not optimal for a
+   small
+   margin of error from your recommended screen resolutions and scale.
 
-**Future**: We plan to expand our support for various screen resolutions and screen scales by including custom scaling,
-which will enhance accessibility and improve the user experience.
+   **Future**: We plan to expand our support for various screen resolutions and screen scales by including custom
+   scaling,
+   which will enhance accessibility and improve the user experience.
 
 5. Allow filtering of orders based on displayed customers.
 
-**Current**: Our application now lacks the functionality to filter orders based on displayed clients,
-which may lead to inefficiencies for users managing multiple clients.
+   **Current**: Our application now lacks the functionality to filter orders based on displayed clients,
+   which may lead to inefficiencies for users managing multiple clients.
 
-**Future**: We plan to enable users to filter orders based on the displayed client, streamlining the experience
-and improving efficiency for users managing multiple clients simultaneously.
+   **Future**: We plan to enable users to filter orders based on the displayed client, streamlining the experience
+   and improving efficiency for users managing multiple clients simultaneously.
 
 6. Allow adding of multiple users with the same name.
 
-**Current**: Currently, our application rejects the addition of multiple clients with the same name
-unless they differ in case sensitivity (e.g., Jane Low and Jane low are acceptable).
+   **Current**: Currently, our application rejects the addition of multiple clients with the same name
+   unless they differ in case sensitivity (e.g., Jane Low and Jane low are acceptable).
 
-**Future**: We intend to enhance our system to allow the addition of multiple clients with identical names,
-recognizing that it is common for clients to share the same name. This improvement will enable users to manage
-multiple clients with similar names more effectively.
+   **Future**: We intend to enhance our system to allow the addition of multiple clients with identical names,
+   recognizing that it is common for clients to share the same name. This improvement will enable users to manage
+   multiple clients with similar names more effectively.
 
 7. Relax constraints on field data types
 
-**Current**: Our application lacks constraints on the data types of input fields, allowing excessively long names
-and unrealistically large values for certain fields like order price.
+   **Current**: Our application lacks constraints on the data types of input fields, allowing excessively long names
+   and unrealistically large values for certain fields like order price.
 
-**Future**: We plan to implement constraints on field data types to prevent issues such as overly long fields
-not displaying correctly and unrealistic values being entered. For example, we will limit the length of names and
-constrain the size of numerical values like order prices to ensure data integrity and usability.
+   **Future**: We plan to implement constraints on field data types to prevent issues such as overly long fields
+   not displaying correctly and unrealistic values being entered. For example, we will limit the length of names and
+   constrain the size of numerical values like order prices to ensure data integrity and usability.
 
 * E.g. do not input a name that is too long, as it may not be displayed correctly.
 * E.g. do not input an Order Price that is unrealistically large for flower orders e.g. 9 billion (
   9,000,000,000).
+
+8. Supporting names with special characters.  
+   **Current**: Our application does not support names with special characters, such as acute accents, (e.g. Amélie) or
+   names with dashes (e.g. Cadence-Jett) and other special characters.  
+   **Future**: We plan to implement lesser constraints and accept more character values outside of A-Z and 0-9.
 
 ## **Appendix: Effort**
 
