@@ -665,11 +665,6 @@ otherwise)
     * 3a1. BookKeeper shows an error message.
 
       Use case resumes at step 2.
-* 3b. The order details are unchanged.
-
-    * 3b1. BookKeeper shows a message indicating no changes are made.
-
-      Use case resumes at step 2.
 
 ### **Use case: Delete order**
 
