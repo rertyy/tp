@@ -19,6 +19,7 @@ title: Developer Guide
 * [Common classes](#common-classes)
 
 [Implementation](#implementation)
+
 * [Order Class](#order-class)
 * [Storing an Order](#storing-an-order)
 * [Adding an Order Feature](#adding-an-order-feature)
@@ -28,6 +29,7 @@ title: Developer Guide
 [Documentation, logging, testing, configuration, dev-ops](#documentation-logging-testing-configuration-dev-ops)
 
 [Appendix: Requirements](#appendix-requirements)
+
 * [Product Scope](#product-scope)
 * [User Stories](#user-stories)
 * [Use Cases](#use-cases)
@@ -138,8 +140,7 @@ The `UI` component,
 
 ### Logic component
 
-**API
-** : [`Logic.java`](https://github.com/AY2324S2-CS2103T-T09-2/tp/blob/master/src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](https://github.com/AY2324S2-CS2103T-T09-2/tp/blob/master/src/main/java/seedu/address/logic/Logic.java)
 
 Here's a (partial) class diagram of the `Logic` component:
 
@@ -174,8 +175,7 @@ How the `Logic` component works:
 
 ### Model component
 
-**API
-** : [`Model.java`](https://github.com/AY2324S2-CS2103T-T09-2/tp/blob/master/src/main/java/seedu/address/model/Model.java)
+**API** : [`Model.java`](https://github.com/AY2324S2-CS2103T-T09-2/tp/blob/master/src/main/java/seedu/address/model/Model.java)
 
 <img src="images/ModelClassDiagram.png" width="682" />
 
@@ -202,8 +202,7 @@ The `Model` component,
 
 ### Storage component
 
-**API
-** : [`Storage.java`](https://github.com/AY2324S2-CS2103T-T09-2/tp/blob/master/src/main/java/seedu/address/storage/Storage.java)
+**API** : [`Storage.java`](https://github.com/AY2324S2-CS2103T-T09-2/tp/blob/master/src/main/java/seedu/address/storage/Storage.java)
 
 Below is an updated UML class diagram illustrating the relationships and interactions among the various storage-related
 classes:
@@ -388,7 +387,6 @@ It was done in this manner to adhere to the following design principles:
   Orders, we enhance our capability to directly manipulate the `OrderList` view in JavaFX. This adjustment in the
   ModelManager class creates a seamless and responsive interaction between the backend data structures and the frontend
   user interface.
-
 
 --------------------------------------------------------------------------------------------------------------------
 
