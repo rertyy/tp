@@ -1116,3 +1116,10 @@ Key achievements include:
 
 
 
+
+--------------------------------------------------------------------------------------------------------------------
+
+## **Acknowledgements**
+
+* Used [AB3 developer guide](https://nus-cs2103-ay2324s2.github.io/tp/DeveloperGuide.html) for the initial template
+  and structure of this document.
