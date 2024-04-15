@@ -598,12 +598,6 @@ otherwise)
 
   Use case ends.
 
-### **Use case: Sort by order**
-
-**MSS**
-
-  Use case end
-
 ### **Use case: Show help**
 
 **MSS**
@@ -1093,7 +1087,6 @@ functionalities.
 
 ### Challenges Faced
 
-
 1. **Bidirectional Navigation** - Implementing bidirectional navigation between orders and clients posed a significant
    challenge. Ensuring that
    modifications to one entity reflected accurately in the other required meticulous attention to detail.
@@ -1107,7 +1100,6 @@ functionalities.
    collaboration to ensure seamless integration. Communication was important to minimize merging conflicts and ensure
    that
    individual components linked are successfully done.
-
 
 ### Effort Required
 
