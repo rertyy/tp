@@ -36,7 +36,7 @@ class PriceTest {
 
         assertFalse(Price.isValidPrice("-1"));
 
-        assertThrows(NumberFormatException.class, () -> Price.isValidPrice(" "));
+        assertFalse(Price.isValidPrice(" "));
         assertTrue(Price.isValidPrice("0"));
 
         assertTrue(Price.isValidPrice("1"));
