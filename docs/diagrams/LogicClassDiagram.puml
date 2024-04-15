@@ -42,7 +42,8 @@ LogicManager --> Storage
 Storage --[hidden] Model
 Command .[hidden]up.> Storage
 Command .right.> Model
-note right of ClientCommand: ClientCommand = AddCommand, \nFindCommand, etc
+note left of ClientCommand: ClientCommand = AddCommand, \nFindCommand, etc
+note right of OrderCommand: OrderCommand = AddOrderCommand, \nEditOrderCommand, etc
 
 Logic ..> CommandResult
 LogicManager .down.> CommandResult

@@ -3,15 +3,57 @@ layout: page
 title: Developer Guide
 ---
 
-* Table of Contents
-  {:toc}
+## Table of Contents
+
+[About BookKeeper](#about-bookkeeper)
+
+[Setting up, getting started](#setting-up-getting-started)
+
+[Design](#design)
+
+* [Architecture](#architecture)
+* [UI Component](#ui-component)
+* [Logic Component](#logic-component)
+* [Model Component](#model-component)
+* [Storage Component](#storage-component)
+* [Common classes](#common-classes)
+
+[Implementation](#implementation)
+
+* [Adding the Order methods](#adding-the-order-methods)
+* [Proposed Undo/redo feature](#proposed-undoredo-feature)
+* [View Orders feature](#view-orders-feature)
+* [Proposed Data archiving](#proposed-data-archiving)
+
+[Documentation, logging, testing, configuration, dev-ops](#documentation-logging-testing-configuration-dev-ops)
+
+[Appendix: Requirements](#appendix-requirements)
+
+* [Product scope](#product-scope)
+* [User stories](#user-stories)
+
+[Use cases](#use-cases)
+
+[Non-Functional Requirements](#non-functional-requirements)
+
+[Glossary](#glossary)
+
+[Appendix: Instructions for manual testing](#appendix-instructions-for-manual-testing)
+
+[Appendix: Planned Enhancements](#appendix-planned-enhancements)
+
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Acknowledgements**
+## **About BookKeeper**
 
-* [AB3 developer guide](https://nus-cs2103-ay2324s2.github.io/tp/DeveloperGuide.html) for the initial template
-  and structure of this document.
+As the florist industry continues to evolve, aspiring florists like you might feel increasingly challenged with
+managing complex business tasks while managing your florist business and crafting bouquets. This often leads to a need
+for efficient and straightforward methods to handle sales, client interactions, and order fulfillment.
+
+BookKeeper is a desktop application designed to support florists who are venturing into this bustling market. We focus
+on alleviating the burden of many cumbersome responsibilities, from tracking client orders to optimising your
+inventory management. This ensures that you can focus more on your floral designs and customer service.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -22,13 +64,6 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Design**
-
-<div markdown="span" class="alert alert-primary">
-
-:bulb: **Tip:** The `.puml` files used to create diagrams in this document `docs/diagrams` folder. Refer to the [
-_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create
-and edit diagrams.
-</div>
 
 ### Architecture
 
@@ -201,85 +236,27 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### Adding the Order methods
+### Order class
 
-![BetterOrderClassDiagram.png](images%2FBetterOrderClassDiagram.png)
+![BetterOrderClassDiagram.png](images/BetterOrderClassDiagram.png)
 
-#### Command and CommandParser Implementations
+Order is a new class added to encapsulate the logic of an Order. It has a composition relationship with the `Client`
+class, and contains the following attributes:
 
-To implement the new Order Logic, a new package has to be created within the commands and parser packages to cater to
-the order implementations. The key changes would be:
+1. OrderDate
+2. Deadline
+3. Price
+4. Description
+5. Status
 
-- Creation of new classes:
-    - Created a `AddOrderCommand` class to cater to order creation inputs by the user. This will get the
-      referenced `Client` by their index in the `ObservableList` and check if the `Client` index is valid.
-      Afterwards, it will create & append the `Order` object into the `Client` object's respective orders list.
-      Upon execution of this command, it will return the `CommandResult` on for the output box to indicate if it was a
-      successful command or not.
-    - Created a `DeleteOrderCommand` class to cater to delete orders by their index in their `ObservableList` class.
-      This will allow the users to delete by index instead of the UUID. The `DeleteOrderCommand` first checks
-      the `ObservableList` by index to determine if the `Order` index is valid, then checks which `Client` the `Order`
-      object belongs to. This allows the modification of both `Client`s and `Order`s at the same time.
-      Upon execution of this command, it will return the `CommandResult` on for the output box to indicate if it was a
-      successful command or not.
+The OrderDate is the time in which the order is created.  
+The Deadline is the time in which the order is due, which is specificed by the user.  
+The Price is a Double type where it represents the price for the order, and follows a numerical format of 2 decimal
+places.  
+The Description a String type which holds the description of the Order.
+The Status is an enum String value consisting of either `pending`, `completed`, `canceled`.
 
-    - Created a `EditOrderCommand` class to cater to allow editing Orders by the user. It will first search the `Order`
-      objects in the `ObservableList` to ensure that the index is valid, before finding the `Client` object that
-      the `Order` object belongs to.
-      Afterwards, the `Order` object is edited, and will be replaced in the `Client` object's orders list to update the
-      details. This will be encapsulated and returned in a `Command` object that will be executed in the main logic.
-- Creation of new parser classes:
-    - Creating a `AddOrderCommandParser` class to create the respective `Command` object by parsing the user input. This
-      flow is as intended, and will allow us to get index of the `Client` object in the `ObservableList` and get the
-      required parameters typed by the user by parsing it with
-      the `Prefix` objects in `CliSyntax` class.
-      For this command, the prefixes used would be `d/` for description, `c/` for price and `by/` for the deadline.
-      The respective `AddOrderCommand` will be created to be executed by the `LogicManager`.
-    - Creating a `DeleteOrderCommandParser` class to create the respective `Command` object by parsing the user input.
-      This flow is as intended, and will allow us to get index of the Order object in the `ObservableList`.
-      This will create the respective `DeleteOrderCommand` to be executed by the `LogicManager`.
-    - Creating a `EditOrderCommandParser` class to create the respective `Command` object by parsing the user input.
-      This flow is as intended, and will allow us to get index of the Order object in the `ObservableList` and get the
-      required parameters typed by the user by parsing it with
-      the `Prefix` objects in `CliSyntax` class. For this command, the prefixes used would be `d/` for description, `c/`
-      for price and `by/` for the deadline.
-      These prefixes are optional, and not including them will use the current `Order` object details.
-      At the end this will create the respective `EditOrderCommand` to be executed by the `LogicManager`.
-
-- Update `Model` and `ModelManager` to provide methods to support the new classes. such as creating the
-  new `ObservableList` object for `Order` objects to
-  update the JavaFX element in the UI.
-
-#### Why is it implemented this way:
-
-It was done in this manner to adhere to the following design principles:
-
-- Separation of Concerns: By delegating specific responsibilities to specialized classes (like `BookKeeperParser`,
-  `AddOrderCommandParser`, etc.), the design adheres to the principle of separation of concerns. This means each part of
-  the system has a clear responsibility, reducing complexity and making the codebase easier to understand and maintain.
-- Provide Extensibility: With a modular structure, adding new functionality (like future order implementations)
-  involves creating new classes and modifying existing ones minimally. This approach makes the system more extensible,
-  as seen with the introduction of new parser and command classes for handling orders.
-- Enhances Frontend Integration:  By redefining how the `ObservableList` is managed within the `ModelManager` for
-  Orders, we enhance our capability to directly manipulate the `OrderList` view in JavaFX. This adjustment in the
-  ModelManager class creates a seamless and responsive interaction between the backend data structures and the frontend
-  user interface.
-
-By doing so, am able to emphasize on the clear separation of duties among components and allowing flexibility to add
-new features with minimal disruption This strategy not only facilitates easier maintenance and scalability but also
-enhances our future ability to develop and create requirements or changes in functionality without affecting much of the
-codebase.
-
-How the parsing works:
-
-* When called upon to parse a user command, the `BookKeeperParser` class creates an `XYZCommandParser` (`XYZ` is a
-  placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse
-  the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `BookKeeperParser` returns back as
-  a `Command` object.
-* All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser`
-  interface so that they can be treated similarly where possible e.g, during testing.
-
-#### Storage Implementations
+### Storing an Order
 
 To implement this feature, several modifications were made across different classes within the `Storage` package. The
 key changes include:
@@ -296,7 +273,7 @@ key changes include:
 
 4. Unit Tests: Unit tests were added or updated to ensure the correctness and robustness of the new functionalities.
 
-#### Why it is implemented that way:
+#### Why it is implemented this way:
 
 With the implementation of storing clients and orders details, the `Storage` component of our application has been
 enhanced to better meet the evolving needs of our users. These changes not only improve the functionality of our
@@ -307,106 +284,108 @@ integrating additional data validation checks to ensure data integrity. Overall,
 the `Storage` component
 mark a significant step forward in enhancing the robustness and flexibility of our application.
 
-### \[Proposed\] Undo/redo feature
+### Adding an Order Feature
 
-#### Proposed Implementation
+This feature allows users to add orders to our application for viewing and storage.
 
-The proposed undo/redo mechanism is facilitated by `VersionedBookKeeper`. It extends `BookKeeper` with an undo/redo
-history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the
-following operations:
+The sequence diagram below showcases the interactions within the application
+![AddOrderSequenceDiagram.png](images%2FAddOrderSequenceDiagram.png)
 
-* `VersionedBookKeeper#commit()`— Saves the current bookkeeper state in its history.
-* `VersionedBookKeeper#undo()`— Restores the previous bookkeeper state from its history.
-* `VersionedBookKeeper#redo()`— Restores a previously undone bookkeeper state from its history.
+An `ObservableList` has been added to the `ModelManager` for the sole purpose of displaying our `Order` objects.
+Additionally, the following classes and methods have been added to support the implementation of this feature:
 
-These operations are exposed in the `Model` interface as `Model#commitBookKeeper()`, `Model#undoBookKeeper()`
-and `Model#redoBookKeeper()` respectively.
+1. `AddOrderCommand`  
+   Created a `AddOrderCommand` class to cater to order creation inputs by the user. This will get the
+   referenced `Client` by their index in the `ObservableList` and check if the `Client` index is valid.
+   Afterwards, it will override the `#execute` method & append the `Order` object into the `Client` object's respective
+   orders list via the model interface.
+   Upon execution of this command, it will return the `CommandResult` on for the output box to indicate if it was a
+   successful command or not.
+2. `AddOrderCommandParser`  
+   Creating a `AddOrderCommandParser` class to create the respective `Command` object by parsing the user input. This
+   flow is as intended, and will allow us to get index of the `Client` object in the `ObservableList` and get the
+   required parameters typed by the user by parsing it with the `Prefix` objects in `CliSyntax` class.
+   For this command, the prefixes used would be `d/` for description, `c/` for price and `by/` for the deadline.
+   The respective `AddOrderCommand` will then be created to be executed by the `LogicManager`.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+#### Why it is implemented this way
 
-Step 1. The user launches the application for the first time. The `VersionedBookKeeper` will be initialized with the
-initial bookkeeper state, and the `currentStatePointer` pointing to that single bookkeeper state.
+1. Separation of Concerns:   
+   By delegating specific responsibilities to specialized classes (like `BookKeeperParser`,
+   `AddOrderCommandParser`, etc.), the design adheres to the principle of separation of concerns. This means each part
+   of
+   the system has a clear responsibility, reducing complexity and making the codebase easier to understand and maintain.
 
-![UndoRedoState0](images/UndoRedoState0.png)
+### Deleting an Order Feature
 
-Step 2. The user executes `delete 5` command to delete the 5th client in bookkeeper. The `delete` command
-calls `Model#commitBookKeeper()`, causing the modified state of bookkeeper after the `delete 5` command executes
-to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted bookkeeper
-state.
+This feature allows users to delete Orders from our application permanently.
 
-![UndoRedoState1](images/UndoRedoState1.png)
+The sequence diagram below showcases the interactions within the application:
+![DeleteOrderSequenceDiagram.png](images%2FDeleteOrderSequenceDiagram.png)
 
-Step 3. The user executes `add n/David …​` to add a new client. The `add` command also
-calls `Model#commitBookKeeper()`, causing another modified bookkeeper state to be saved into
-the `addressBookStateList`.
+This will delete both the `Order` in the `ObservableList` for orders and from the `Client` object as well.
 
-![UndoRedoState2](images/UndoRedoState2.png)
+The following classes and methods have been added to support the implementation of this feature:
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution, it will not call `Model#commitBookKeeper()`, so bookkeeper state will not be saved into the `addressBookStateList`.
+1. `DeleteOrderCommand`  
+   Created a `DeleteOrderCommand` class to cater to delete orders by their index in their `ObservableList` class.
+   This will allow the users to delete by index instead of the UUID. The `DeleteOrderCommand` first checks
+   the `ObservableList` by index to determine if the `Order` index is valid, then checks which `Client` the `Order`
+   object belongs to. This allows the modification of both `Client`s and `Order`s at the same time.
+   Upon execution of this command, it will return the `CommandResult` on for the output box to indicate if it was a
+   successful command or not.
+2. `DeleteOrderCommandParser`  
+   Creating a `DeleteOrderCommandParser` class to create the respective `Command` object by parsing the user input.
+   This flow is as intended, and will allow us to get index of the Order object in the `ObservableList`.
+   This will create the respective `DeleteOrderCommand` to be executed by the `LogicManager`.
 
-</div>
+#### Why it is implemented this way
 
-Step 4. The user now decides that adding the client was a mistake, and decides to undo that action by executing
-the `undo` command. The `undo` command will call `Model#undoBookKeeper()`, which will shift the `currentStatePointer`
-once to the left, pointing it to the previous bookkeeper state, and restores bookkeeper to that state.
+1. Separation of Concerns:   
+   Again, by simply delegating specific responsibilities to specialized classes (like `DeleteOrderCommandParser` and
+   `DeleteOrderCommand`), the design adheres to the principle of separation of concerns. This means each part
+   of the system has a clear responsibility, reducing complexity and making the codebase easier to understand and
+   maintain.
 
-![UndoRedoState3](images/UndoRedoState3.png)
+### Editing an Order Feature
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index 0, pointing to the initial BookKeeper state, then there are no previous BookKeeper states to restore. The `undo` command uses `Model#canUndoBookKeeper()` to check if this is the case. If so, it will return an error to the user rather
-than attempting to perform the undo.
+This feature allows users to edit Orders objects in our application.
 
-</div>
+The following sequence diagram describes the flow:
 
-The following sequence diagram shows how an undo operation goes through the `Logic` component:
+The following classes and methods have been added to support the implementation of this feature:
 
-![UndoSequenceDiagram](images/UndoSequenceDiagram-Logic.png)
+1. `EditOrderCommand`  
+   Created a `EditOrderCommand` class to cater to allow editing Orders by the user. It will first search the `Order`
+   objects in the `ObservableList` to ensure that the index is valid, before finding the `Client` object that
+   the `Order` object belongs to.
+   Afterwards, the `Order` object is edited, and will be replaced in the `Client` object's orders list to update the
+   details. This will be encapsulated and returned in a `Command` object that will be executed in the main logic.
+2. `EditOrderCommandParser`  
+   Creating a `EditOrderCommandParser` class to create the respective `Command` object by parsing the user input.
+   This flow is as intended, and will allow us to get index of the Order object in the `ObservableList` and get the
+   required parameters typed by the user by parsing it with
+   the `Prefix` objects in `CliSyntax` class. For this command, the prefixes used would be `d/` for description, `c/`
+   for price and `by/` for the deadline.
+   These prefixes are optional, and not including them will use the current `Order` object details.
+3. `EditOrderCommandParser#EditOrderDescriptor`  
+   This is a nested static class within the `EditOrderCommand` class that manages the `Order` information.
+   It's role is to temporarily hold the values of `Order` information that may or may not be updated. It acts as a data
+   transfer object that contains the details to be edited by the user.
+   Additionally, it helps to validate the fields to ensure that there are only valid values will be accepted, and to
+   parse and apply the edits.
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+#### Why is it implemented this way:
 
-</div>
+It was done in this manner to adhere to the following design principles:
 
-Similarly, how an undo operation goes through the `Model` component is shown below:
-
-![UndoSequenceDiagram](images/UndoSequenceDiagram-Model.png)
-
-The `redo` command does the opposite — it calls `Model#redoBookKeeper()`, which shifts the `currentStatePointer` once
-to the right, pointing to the previously undone state, and restores bookkeeper to that state.
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest bookkeeper state, then there are no undone BookKeeper states to restore. The `redo` command uses `Model#canRedoBookKeeper()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-</div>
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify bookkeeper, such
-as `list`, will usually not call `Model#commitBookKeeper()`, `Model#undoBookKeeper()` or `Model#redoBookKeeper()`.
-Thus, the `addressBookStateList` remains unchanged.
-
-![UndoRedoState4](images/UndoRedoState4.png)
-
-Step 6. The user executes `clear`, which calls `Model#commitBookKeeper()`. Since the `currentStatePointer` is not
-pointing at the end of the `addressBookStateList`, all bookkeeper states after the `currentStatePointer` will be
-purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern
-desktop applications follow.
-
-![UndoRedoState5](images/UndoRedoState5.png)
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-<img src="images/CommitActivityDiagram.png" width="250" />
-
-#### Design considerations:
-
-**Aspect: How undo & redo executes:**
-
-* **Alternative 1 (current choice):** Saves the entire bookkeeper.
-    * Pros: Easy to implement.
-    * Cons: May have performance issues in terms of memory usage.
-
-* **Alternative 2:** Individual command knows how to undo/redo by
-  itself.
-    * Pros: Will use less memory (e.g. for `delete`, just save the client being deleted).
-    * Cons: We must ensure that the implementation of each individual command are correct.
-
-_{more aspects and alternatives to be added}_
+- Provide Extensibility: With a modular structure, adding new functionality (like future order implementations)
+  involves creating new classes and modifying existing ones minimally. This approach makes the system more extensible,
+  as seen with the introduction of new parser and command classes for handling orders.
+- Enhances Frontend Integration:  By redefining how the `ObservableList` is managed within the `ModelManager` for
+  Orders, we enhance our capability to directly manipulate the `OrderList` view in JavaFX. This adjustment in the
+  ModelManager class creates a seamless and responsive interaction between the backend data structures and the frontend
+  user interface.
 
 ### View Orders feature
 
@@ -466,24 +445,30 @@ _{Explain here how the data archiving feature will be implemented}_
 
 ### Product scope
 
-**Target user profile**:
+**Target user profile**: Klara is a florist and owner of Royal Bloom, a thriving floral shop in Singapore.
+As her business grows, managing the increasing volume of orders and client information becomes more complex and
+time-consuming.
 
-* Florists business owners or freelance hobbyist in the floral industry.
+Recently, the demand for personalised and expedited flower arrangements has risen, leading to challenges in keeping up
+with client requests and order specifics. This has resulted in Klara needing a more efficient way to manage her shop’s
+operations to maintain customer satisfaction and business growth. In response, Klara's florist mentor, Jenna, suggests
+implementing a more convenient system to streamline these processes.
+
+Therefore, Jenna has recommended BookKeeper, a desktop application designed to assist florists like Klara. BookKeeper
+will help Klara manage her growing list of clients and orders.
+
+Klara is tech-savvy and prefers tools that enhance productivity while streamlining her workflow. She values
+desktop applications for their reliability and performance and is accustomed to managing digital tools that save time
+and reduce manual efforts.
+
+Klara is a small business owner of a florist shop, specifically a freelance hobbyist in the floral industry. She has
+the requirements of:
+
 * Prefers efficient ways to manage their clients and their information.
 * Prefers an efficient way to keep track of client's orders.
 * Values productivity and time-saving solutions.
 
-**User Needs and Preferences**:
-
-* Efficient Customer Management:
-    * Can organize and manage customer lists effectively.
-    * Prefers streamlined processes for handling customer information.
-    * Values tools that optimize workflows and save time.
-* Organised Orders
-    * Prefers to organize orders and sort them via due date.
-    * Helps to keep track of customer's delivery deadlines.
-* Persistent Data Storage:
-    * Prefers application that stores data across local sessions.
+(Note: Klara and Jenna are fictional characters, created based on research of the needs of real florist business owners)
 
 **Value proposition**:
 
@@ -517,12 +502,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `*`      | Florist | track the status of each order                                              | provide updates to clients and manage expectations.                                                             |
 | `*`      | Florist | assign a price to each order                                                | have accurate record-keeping and financial management.                                                          |
 
-### Use cases
+## Use cases
 
 (For all use cases below, the **System** is the `BookKeeper` and the **Actor** is the `user`, unless specified
 otherwise)
 
-**Use case: Delete a Client**
+### **Use case: Delete a client**
 
 **MSS**
 
@@ -545,7 +530,7 @@ otherwise)
 
       Use case resumes at step 2.
 
-**Use case: Add a client**
+### **Use case: Add a client**
 
 **MSS**
 
@@ -569,7 +554,7 @@ otherwise)
 
       Use case resumes at step 1.
 
-**Use case: Edit a client**
+### **Use case: Edit a client**
 
 **MSS**
 
@@ -599,7 +584,7 @@ otherwise)
 
       Use case resumes at step 2.
 
-**Use case: Find a client**
+### **Use case: Find a client**
 
 **MSS**
 
@@ -617,7 +602,7 @@ otherwise)
 
   Use case ends.
 
-**Use case: Sort by order**
+### **Use case: Sort by order**
 
 **MSS**
 
@@ -626,7 +611,7 @@ otherwise)
 
    Use case ends.
 
-**Use case: Show help**
+### **Use case: Show help**
 
 **MSS**
 
@@ -635,7 +620,7 @@ otherwise)
 
    Use case ends.
 
-**Use case: Clear all entries**
+### **Use case: Clear all entries**
 
 **MSS**
 
@@ -644,7 +629,7 @@ otherwise)
 
    Use case ends.
 
-**Use case: Exit the program**
+### **Use case: Exit the program**
 
 **MSS**
 
@@ -653,7 +638,7 @@ otherwise)
 
    Use case ends.
 
-**Use case: Add order**
+### **Use case: Add order**
 
 **MSS**
 
@@ -675,7 +660,7 @@ otherwise)
 
       Use case resumes at step 1.
 
-**Use case: Edit order**
+### **Use case: Edit order**
 
 **MSS**
 
@@ -704,7 +689,7 @@ otherwise)
 
       Use case resumes at step 2.
 
-**Use case: Delete order**
+### **Use case: Delete order**
 
 **MSS**
 
@@ -721,7 +706,7 @@ otherwise)
 
       Use case resumes at step 1.
 
-### Non-Functional Requirements
+## Non-Functional Requirements
 
 1. Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
 2. Should be able to hold up to 1000 clients' information without a noticeable sluggishness in performance for typical
@@ -735,7 +720,7 @@ otherwise)
 6. Automated backups of critical data should be performed, and there should be a documented and tested procedure for
    data recovery in case of system failures or data loss.
 
-### Glossary
+## Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
 * **Private contact detail**: A contact detail that is not meant to be shared with others
@@ -758,47 +743,289 @@ testers are expected to do more *exploratory* testing.
 
 ### Launch and shutdown
 
-1. Initial launch
+1. Ensure you have Java `11` and above installed in your system.
+    * You may check if you have Java installed by opening your command prompt or terminal, and typing:  
+      `java --version`
+        * If Java is installed, you should ensure that it is currently running on version "11.x.xx".
+        * ![img_2.png](images/JavaVersionScreenshot.png)
+        * If you encounter an error, or if your version does not match our specified requirements, you may visit the
+          [Official Oracle website](https://www.oracle.com/java/technologies/javase/jdk11-archive-downloads.html) to
+          download the Java JDK required to run this project.
 
-    1. Download the jar file and copy into an empty folder
+2. Initial launch
 
-    1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be
-       optimum.
+    1. Download the latest `bookkeeper.jar` release from [here](https://github.com/AY2324S2-CS2103T-T09-2/tp/releases)
+    2. Copy the file to the folder you want to use as the _home folder_ for your BookKeeper.
+    3. Open your terminal or command prompt in your system.
+    4. `cd` into the folder you put the jar file in, and use the `java -jar bookkeeper.jar`
+       command to run the application.<br>
+       Expected: A GUI similar to the below should appear in a few seconds.
 
-1. Saving window preferences
+       Note how the app contains some sample data.<br>
+       ![Ui](images/Ui.png)
 
-    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
+### Viewing Help
 
-    1. Re-launch the app by double-clicking the jar file.<br>
-       Expected: The most recent window size and location is retained.
+Pre-requisite:
 
-1. _{ more test cases …​ }_
+* None
 
-### Deleting a Client
+Command: `help`
 
-1. Deleting a client while all clients are being shown
+Expected Output:
 
-    1. Prerequisites: List all clients using the `list` command. Multiple clients in the list.
+* A help window should open up with instructions to
+  `Refer to the user guide: https://ay2324s2-cs2103t-t09-2.github.io/tp/UserGuide.html#5-main-features`
 
-    1. Test case: `delete 1`<br>
-       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message.
-       Timestamp in the status bar is updated.
+Expected Output in the Command Output Box:
 
-    1. Test case: `delete 0`<br>
-       Expected: No client is deleted. Error details shown in the status message. Status bar remains the same.
+* `Opened help window.`
 
-    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-       Expected: Similar to previous.
+### Clearing BookKeeper
 
-1. _{ more test cases …​ }_
+Pre-requisite:
 
-### Saving data
+* There is at least one ("1") client and/or order stored in the BookKeeper application.
 
-1. Dealing with missing/corrupted data files
+Command: `clear`
 
-    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+Expected Output:
 
-1. _{ more test cases …​ }_
+* All clients and orders will be cleared.
+
+Expected Output in the Command Output Box:
+
+* `BookKeeper has been cleared!`
+
+### Exiting the Program
+
+Pre-requisite:
+
+* There is at least one ("1") client and/or order stored in the BookKeeper application.
+
+Command: `clear`
+
+Expected Output:
+
+* Exits the program.
+
+Expected Output in the Command Output Box:
+
+* `BookKeeper has been cleared!`
+
+### Adding a client
+
+Pre-requisite:
+
+* There should not exist another client with the exact same name (names are case-sensitive) and spacing,
+  i.e. the names "Betsy Crowe" and "Betsy crowe" are considered as different names.
+
+Command: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
+
+* Example: `add n/Betsy Crowe e/betsycrowe@example.com a/Beauty World p/1234567 t/VIP`
+* Note:
+    * Name must be unique, clients with exact same name is not allowed.
+    * A client can have any number of tags (including 0).
+    * Tags do not accept whitespaces (e.g. “VIP 2” is not accepted, “VIP2” is accepted).
+    * Tags only accept 0-9 and a-z.
+    * Names only accept 0-9 and a-z and are case-sensitive.
+    * Two persons with the same name are not allowed, but two persons with the same name but different cases are
+      allowed.
+    * Phone number must be numeric and at least 3 numbers. It must not contain spaces “ “, brackets `()` or hyphens
+      `-`, plus `+` , or other symbols.
+    * Emails must not have consecutive special characters. E.g. “john..doe@example.com” is not accepted.
+
+Expected Output:
+
+* All the client information with their respective fields will be displayed on the left side column.
+
+Expected Output in the Command Output Box:
+
+* `New client added: Betsy Crowe; Phone: 1234567; Email: betsycrowe@example.com; Address: Beauty World; Tags: [VIP]`
+* The message should echo and show correctly the information that you have entered for your client.
+
+### Editing a client
+
+Pre-requisite:
+
+* You must know the index of the client you want to edit.
+* A client must exist at the index you want to edit at i.e. you cannot edit a client at index 3 if you only have two
+  clients in the application.
+* There must at least be one client in the application.
+
+Command: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
+
+* Example: `edit 1 n/Betsy Crower t/`
+* This edits the name of the 1st client to be `Betsy Crower` and clears all existing tags.
+
+Expected Output:
+
+* The application will be updated with the edited client information.
+
+Expected Output in the Command Output Box:
+
+* `Edited Client: Betsy Crower; Phone: 1234567; Email: betsycrowe@example.com; Address: Beauty World; Tags: `
+
+### Deleting a client
+
+Pre-requisite:
+
+* You must know the index of the client you want to delete.
+* A client must exist at the index you want to delete i.e. you cannot delete a client at index 3 if you only have two
+  clients in the application.
+* There must at least be one client in the application.
+
+Command: `delete INDEX`
+
+* Examples:
+    * `delete 1` deletes the 1st client listed in your application.
+    * `find Betsy` followed by `delete 1` deletes the 1st client in the results of the find command.
+* Note:
+    * This deletes the client at the specified INDEX.
+    * The index refers to the index number shown for the respective client in the displayed client list.
+    * The index must be a positive integer 1, 2, 3, …​
+
+Expected Output:
+
+* Client is removed from the application.
+
+Expected Output in the Command Output Box:
+
+* `Deleted Client: Betsy Crower; Phone: 1234567; Email: betsycrowe@example.com; Address: Beauty World; Tags:`
+* Note: The details of the client should correspond to the client that you have just deleted.
+
+### Listing all clients
+
+Pre-requisite:
+
+* There must at least be one client in the application.
+
+Command: `list`
+
+Expected Output:
+
+* Shows a list of all clients in BookKeeper.
+
+Expected Output in the Command Output Box:
+
+* `Listed all clients`
+
+### Locating clients by name: find
+
+Pre-requisite:
+
+* There must at least be one client in the application.
+
+Command: `find KEYWORD [MORE_KEYWORDS]…`
+
+* Examples:
+    * `find alex david` returns `Alex Yeoh`, `David Li`
+    * `find John` returns `john` and `John Doe`
+
+Expected Output:
+
+* Finds clients whose names contain any of the given keywords.
+
+Expected Output in the Command Output Box:
+
+* `2 clients listed!`
+* Note: the number of clients listed depends on the number of matching clients found by the application.
+
+### Adding an order
+
+Pre-requisite:
+
+* There must at least be one client in the application.
+* You must know the index of the client you want to add an order to.
+
+Command: `order INDEX by/DEADLINE c/PRICE d/DESCRIPTION`
+
+* Examples:
+    * `order 1 d/1xRoses c/40 by/23-07-2024 00:00`
+    * `order 3 by/07-07-2024 00:00 c/88.88 d/99xRoses`
+    * `order 1 by/23-05-2024 16:00 c/58.90 d/1xLily`
+* Note:
+    * Adds an order to the client at the specified `INDEX`. The index must be a positive integer 1, 2, 3, …​,
+      and the index must exist in the Client list.
+    * All fields must be provided.
+    * The order of the fields does not matter (e.g. both `order INDEX by/DEADLINE c/PRICE d/DESCRIPTION` and
+      `order INDEX d/DESCRIPTION c/PRICE by/DEADLINE` are acceptable)
+    * The status of new orders are automatically set to “PENDING”.
+    * Please specify `by/DEADLINE` field in `DD-MM-YYYY HH:MM`.
+        * Deadlines can be set to a date before a date before today to mean that an order is overdue. E.g. if your
+          order was due yesterday, but you have not completed the order, you can put yesterday’s date.
+          This lets you track if you have orders that are overdue.
+    * For the `c/PRICE` field, do note that any decimal places after 2 will be rounded.
+        * E.g. `2.999` will be rounded up to `3.00`.
+    * The order list will be sorted according to their deadline.
+      Meaning, if there are two orders, one due on `10-10-2025 10:00` and another due on `10-10-2025 10:30`, the order
+      with the deadline of `10-10-2025 10:00` will have an index of `1`, and the other order will have an index of `2`.
+
+Expected Output:
+
+* Adds an order into BookKeeper.
+
+Expected Output in the Command Output Box:
+
+* `New Order added! John Doe`
+* Note: The name of the client that you added the order to will appear after `New Order added!`
+
+### Deleting an order
+
+Pre-requisite:
+
+* There must at least be one client and one order in the application.
+* You must know the index of the order you want to delete.
+
+Command: `deleteOrder INDEX`
+
+* Example: `deleteOrder 2` deletes the 2nd order in the order list.
+* Note:
+    * Deletes the order at the specified `INDEX`.
+    * The index refers to the index number shown in the displayed order list.
+    * The index must be a positive integer 1, 2, 3, …​, and the index must exist in the Client list.
+
+Expected Output:
+
+* Deletes the specified order from BookKeeper.
+
+Expected Output in the Command Output Box:
+
+* `Deleted Order: Deadline: 23-07-2024 00:00; Date Received: 15-04-2024 12:52; Details: 1xRoses`
+* Note: The details of the deleted order in the command output box will correspond to the details of the order deleted
+  at the index.
+
+### Editing an order
+
+Pre-requisite:
+
+* There must at least be one client and one order in the application.
+* You must know the index of the order you want to edit.
+
+Command: `editOrder INDEX [by/DEADLINE] [c/PRICE] [d/DESCRIPTION] [s/STATUS]`
+
+* Examples:
+    * `editOrder 1 by/05-05-2024 16:00 c/58.90 d/1xRoses s/PENDING` edits the Deadline and
+      Description of the 1st Order list.
+    * `editOrder 1 s/COMPLETED` edits 1st order status to “COMPLETED”.
+* Note:
+    * Edits the order at the specified `INDEX`.
+      The index must be a positive integer 1, 2, 3, …​ and the index must exist in the Order list.
+    * Command can work without any optional fields provided.
+    * Existing values will be updated to the input values.
+    * There are 3 possible statuses (they are all case-insensitive):
+        * PENDING: All orders are automatically set to PENDING
+        * COMPLETED: When the order is delivered successfully
+        * CANCELED: When the order is canceled
+
+Expected Output:
+
+* Edits an existing order in BookKeeper.
+
+Expected Output in the Command Output Box:
+
+* `Edited Order: Deadline: 23-07-2024 00:33; Date Received: 15-04-2024 12:52; Details: 1xRoses`
+* Note: The details of the edited order will correspond to the details specified in the command.
 
 ## **Appendix: Planned Future Enhancements (Beyond v1.4)**
 
@@ -871,12 +1098,13 @@ constrain the size of numerical values like order prices to ensure data integrit
 
 ## **Appendix: Effort**
 
-Our project aimed to develop a comprehensive solution tailored for florist to manage both client information and order
-delivery tracking seamlessly. Unlike AB3. which focuses only on the client entity, our project extended its scope to
-include orders, thus introducing complexity in managing bidirectional navigation and ensuring seamless integration
-between client and order functionalities.
+Our project aims to develop a comprehensive solution tailored for florists to manage both client information and order
+delivery tracking seamlessly. Unlike AB3, which focuses only on the person or client entity, our project extended its
+scope to include orders, thus introducing complexity by requiring the seamless linking between client and order
+functionalities.
 
 ### Challenges Faced
+
 
 1. **Bidirectional Navigation** - Implementing bidirectional navigation between orders and clients posed a significant
    challenge. Ensuring that
@@ -891,6 +1119,7 @@ between client and order functionalities.
    collaboration to ensure seamless integration. Communication was important to minimize merging conflicts and ensure
    that
    individual components linked are successfully done.
+
 
 ### Effort Required
 
