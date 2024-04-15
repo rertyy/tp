@@ -1,0 +1,40 @@
+@startuml
+skinparam arrowThickness 1.1
+skinparam arrowColor black
+skinparam classBackgroundColor MODEL_COLOR
+'skinparam classAttributeIconSize 0
+'skinparam usecaseAttributeIconSize 0
+'skinparam usecaseAttributeFontSize 0
+'skinparam classAttributeIconSize 0
+'skinparam usecaseAttributeIconSize 0
+skinparam object {
+  StereotypeFontColor<<enumeration>> red
+  StereotypeFontStyle<<enumeration>> normal
+ }
+
+'hide circle
+'show arrows
+'hide methods
+'
+'Class Order {
+'}
+'
+'Order *--> Deadline
+'Order *--> OrderDate
+'Order *--> Price
+'Order *--> Remark
+'Order *--> Status
+
+object Status {
+    statusEnum: StatusEnum
+}
+
+object StatusEnum <<enumeration>> {
+    CANCELED
+    PENDING
+    COMPLETED
+}
+
+
+@enduml
+
