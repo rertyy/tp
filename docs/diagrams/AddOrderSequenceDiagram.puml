@@ -6,13 +6,13 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":BookKeeperParser" as BookKeeperParser LOGIC_COLOR
 participant ":AddOrderCommandParser" as AddOrderCommandParser LOGIC_COLOR
-participant "o:Order" as Order LOGIC_COLOR
 participant "a:AddOrderCommand" as AddOrderCommand LOGIC_COLOR
 participant "r:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
 participant "m:Model" as Model MODEL_COLOR
+participant "o:Order" as Order MODEL_COLOR
 end box
 
 [-> LogicManager : execute("order args")
