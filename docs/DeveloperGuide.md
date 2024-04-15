@@ -238,7 +238,7 @@ This section describes some noteworthy details on how certain features are imple
 
 ### Order class
 
-![BetterOrderClassDiagram.png](images%2FBetterOrderClassDiagram.png)
+![BetterOrderClassDiagram.png](images/BetterOrderClassDiagram.png)
 
 Order is a new class added to encapsulate the logic of an Order. It has a composition relationship with the `Client`
 class, and contains the following attributes:
@@ -1062,26 +1062,26 @@ Expected Output in the Command Output Box:
 
 ## **Appendix: Effort**
 
-Our project aimed to develop a comprehensive solution tailored for florist to manage both client information and order
-delivery tracking seamlessly. Unlike AB3. which focuses only on the client entity, our project extended its scope to
-include orders, thus introducing complexity in managing bidirectional navigation and ensuring seamless integration
-between client and order functionalities.
+Our project aims to develop a comprehensive solution tailored for florists to manage both client information and order
+delivery tracking seamlessly. Unlike AB3, which focuses only on the person or client entity, our project extended its
+scope to include orders, thus introducing complexity by requiring the seamless linking between client and order
+functionalities.
 
 ### Challenges Faced
 
 1. *Bidirectional Navigation* - Implementing bidirectional navigation between orders and clients posed a significant
-   challenge. Ensuring that
-   modifications to one entity reflected accurately in the other required meticulous attention to detail.
-2. *Linking Orders to Clients* - Establishing a robust linkage between orders and clients presented difficulties,
-   especially during operations
-   like delete or edit. Coordinating changes on both client and order sides to maintain data correctness demanded
-   careful
-   planning and execution.
+   challenge. Because orders are linked to clients, any changes to the clients have to be reflected in the orders. Every
+   client has a reference to their orders and each order has a reference to the corresponding client, and displays the
+   name of the corresponding client. When the client's name changes, the order card has to be updated.
+
+2. *Linking Orders List to Clients List* - Establishing a robust linking between the order list and the client list
+   presented difficulties. Due to the bidirectional navigation, when adding or deleting orders for respective clients,
+   each client object had to be updated, and the order display had to be updated. Likewise, when deleting clients, all
+   their orders have to be deleted with them. This required thorough planning and testing.
+
 3. *Collaborative Development* - Each team member had to work on features and functions independently, necessitating
-   close
-   collaboration to ensure seamless integration. Communication was important to minimize merging conflicts and ensure
-   that
-   individual components linked are successfully done.
+   close collaboration to ensure seamless integration. Communication was important to minimize merging conflicts and
+   ensure that individual components linked are successfully done without too many merge conflicts or duplicated work.
 
 ### Effort Required
 
