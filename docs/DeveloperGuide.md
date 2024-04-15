@@ -805,33 +805,74 @@ testers are expected to do more *exploratory* testing.
 
 1. _{ more test cases …​ }_
 
-## **Appendix: Planned Enhancements**
+## **Appendix: Planned Future Enhancements (Beyond v1.4)**
+
+Team size: 4
 
 1. Enhanced Error Messaging
-    * Implementing more specific error messages for the "edit" and "editOrder" functions to provide clearer guidance
-      to users encountering issues.
+
+**Current**: Our edit command function's error messages for both client and order are too general, not specifying
+the exact issue with the input command causing the error. They address potential errors rather than pinpointing the
+specific one the user is facing. This ambiguity extends to other functions like add and delete command as well.
+
+**Future**: We plan to implement more specific error messages tailored to the respective errors encountered. This will
+offer clearer guidance to users, helping them identify and resolve issues promptly.
+
 2. Enhanced Error Messaging for Wrong Indices with Missing Fields
-    * For the `edit` command, if the user fills in 0 fills but an invalid index, the error message is "At least one
-      field to edit must be provided."
-    * This will be changed to note the invalid index in the future.
+
+**Current**: Similarly, currently our error messages for wrong indices and missing fields in the edit command lack
+specificity. We provide a generic message like "at least one field to edit must be provided," without indicating which
+field is missing or if there's an issue with the index.
+
+**Future**: We plan to refine these error messages to explicitly highlight the missing field or incorrect index,
+enabling users to identify the problem immediately and take appropriate action.
+
 3. Extended Tag Length and Error Refinement
-    * Increase the maximum length of tags supported within the system, enabling users to provide more descriptive labels
-      and organize content effectively.
+
+**Current**: Our application now imposes limitations on tag length, restricting users from inputting longer tags,
+which may hinder organization and labeling efforts.
+
+**Future**: To address this, we aim to extend the maximum length of tags supported within the system. This enhancement
+will empower users to provide more descriptive labels and organize content more effectively, enhancing usability.
+
 4. Resolution Support
-    * Expand resolution support to include additional screen resolutions such as 1280x720, catering to a broader range
-      of devices and user preferences.
+
+**Current**: Our application currently only support a single type of screen resolution, limiting compatibility
+with various devices and user preferences.
+
+**Future**: Recognizing the importance of catering to diverse user needs, we plan to expand our resolution support
+to include additional screen resolutions such as 1280x720. This will ensure compatibility across a broader range of
+devices, enhancing accessibility and user experience.
+
 5. Allow filtering of orders based on displayed customers.
-    * Allow users to filter orders based on the displayed customers, providing a more streamlined and efficient
-      experience for users managing multiple clients.
+
+**Current**: Our application now lacks the functionality to filter orders based on displayed clients,
+which may lead to inefficiencies for users managing multiple clients.
+
+**Future**: We plan to enable users to filter orders based on the displayed client, streamlining the experience
+and improving efficiency for users managing multiple clients simultaneously.
+
 6. Allow adding of multiple users with the same name.
-    * Allow users to add multiple clients with the same name, enabling users to manage multiple clients with similar
-      names more effectively.
+
+**Current**: Currently, our application rejects the addition of multiple clients with the same name
+unless they differ in case sensitivity (e.g., Jane Low and Jane low are acceptable).
+
+**Future**: We intend to enhance our system to allow the addition of multiple clients with identical names,
+recognizing that it is common for clients to share the same name. This improvement will enable users to manage
+multiple clients with similar names more effectively.
+
 7. Relax constraints on field data types
-    * There are constraints on length of values that may prevent overly long fields from being displayed correctly.
-        * E.g. do not input a name that is too long, as it may not be displayed correctly.
-    * There a constraints on size of values due to the innate storage system. Numbers cannot be too large.
-        * E.g. do not input an Order Price that is unrealistically large for flower orders e.g. 9 billion (
-          9,000,000,000).
+
+**Current**: Our application lacks constraints on the data types of input fields, allowing excessively long names
+and unrealistically large values for certain fields like order price.
+
+**Future**: We plan to implement constraints on field data types to prevent issues such as overly long fields
+not displaying correctly and unrealistic values being entered. For example, we'll limit the length of names and
+constrain the size of numerical values like order prices to ensure data integrity and usability.
+
+* E.g. do not input a name that is too long, as it may not be displayed correctly.
+* E.g. do not input an Order Price that is unrealistically large for flower orders e.g. 9 billion (
+  9,000,000,000).
 
 ## **Appendix: Effort**
 
@@ -842,15 +883,15 @@ between client and order functionalities.
 
 ### Challenges Faced
 
-1. *Bidirectional Navigation* - Implementing bidirectional navigation between orders and clients posed a significant
+1. **Bidirectional Navigation** - Implementing bidirectional navigation between orders and clients posed a significant
    challenge. Ensuring that
    modifications to one entity reflected accurately in the other required meticulous attention to detail.
-2. *Linking Orders to Clients* - Establishing a robust linkage between orders and clients presented difficulties,
+2. **Linking Orders to Clients** - Establishing a robust linkage between orders and clients presented difficulties,
    especially during operations
    like delete or edit. Coordinating changes on both client and order sides to maintain data correctness demanded
    careful
    planning and execution.
-3. *Collaborative Development* - Each team member had to work on features and functions independently, necessitating
+3. **Collaborative Development** - Each team member had to work on features and functions independently, necessitating
    close
    collaboration to ensure seamless integration. Communication was important to minimize merging conflicts and ensure
    that
