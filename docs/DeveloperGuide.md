@@ -201,9 +201,116 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### Adding the Order methods
+### Order class
 
 ![BetterOrderClassDiagram.png](images%2FBetterOrderClassDiagram.png)
+
+Order is a new class added to encapsulate the logic of an Order. It has a composition relationship with the `Client`
+class, and contains the following attributes:
+
+1. OrderDate
+2. Deadline
+3. Price
+4. Description
+5. Status
+
+The OrderDate is the time in which the order is created.  
+The Deadline is the time in which the order is due, which is specificed by the user.  
+The Price is a Double type where it represents the price for the order, and follows a numerical format of 2 decimal
+places.  
+The Description a String type which holds the description of the Order.
+The Status is an enum String value consisting of either `pending`, `completed`, `canceled`.
+
+### Storing an Order
+
+To implement this feature, several modifications were made across different classes within the `Storage` package. The
+key changes include:
+
+1. New Classes: The introduction of `JsonAdaptedClient` and `JsonAdaptedOrder` classes to facilitate the conversion
+   between JSON format and the corresponding model objects (`Client` and `Order`).
+
+2. Updated Interfaces: The `BookKeeperStorage` interface was extended to included methods for reading and writing
+   orders. Similarly, the `Storage` interface, which serves as an umbrella for all storage-related functionalities,
+   was update to incorporate these changes.
+
+3. Storage Manager: The `StorageManager` class, which orchestrates the storage operations, was modified to delegate the
+   handling of client and order data to the appropriate storage classes.
+
+4. Unit Tests: Unit tests were added or updated to ensure the correctness and robustness of the new functionalities.
+
+#### Why it is implemented this way:
+
+With the implementation of storing clients and orders details, the `Storage` component of our application has been
+enhanced to better meet the evolving needs of our users. These changes not only improve the functionality of our
+application but also lay the groundwork for future enhancements and features.
+
+Future plans may involve further optimizing the storage mechanisms, exploring alternative storage formats, or
+integrating additional data validation checks to ensure data integrity. Overall, the recent enhancements to
+the `Storage` component
+mark a significant step forward in enhancing the robustness and flexibility of our application.
+
+### Adding an Order Feature
+
+This feature allows users to add orders to our application for viewing and storage.
+
+The sequence diagram below showcases the interactions within the application
+![AddOrderSequenceDiagram.png](images%2FAddOrderSequenceDiagram.png)
+
+An `ObservableList` has been added to the `ModelManager` for the sole purpose of displaying our `Order` objects.
+Additionally, the following classes and methods have been added to support the implementation of this feature:
+
+1. `AddOrderCommand`  
+   Created a `AddOrderCommand` class to cater to order creation inputs by the user. This will get the
+   referenced `Client` by their index in the `ObservableList` and check if the `Client` index is valid.
+   Afterwards, it will override the `#execute` method & append the `Order` object into the `Client` object's respective
+   orders list via the model interface.
+   Upon execution of this command, it will return the `CommandResult` on for the output box to indicate if it was a
+   successful command or not.
+2. `AddOrderCommandParser`  
+   Creating a `AddOrderCommandParser` class to create the respective `Command` object by parsing the user input. This
+   flow is as intended, and will allow us to get index of the `Client` object in the `ObservableList` and get the
+   required parameters typed by the user by parsing it with the `Prefix` objects in `CliSyntax` class.
+   For this command, the prefixes used would be `d/` for description, `c/` for price and `by/` for the deadline.
+   The respective `AddOrderCommand` will then be created to be executed by the `LogicManager`.
+
+#### Why it is implemented this way
+
+1. Separation of Concerns:   
+   By delegating specific responsibilities to specialized classes (like `BookKeeperParser`,
+   `AddOrderCommandParser`, etc.), the design adheres to the principle of separation of concerns. This means each part
+   of
+   the system has a clear responsibility, reducing complexity and making the codebase easier to understand and maintain.
+
+### Deleting an Order Feature
+
+This feature allows users to delete Orders from our application permanently.
+
+The sequence diagram below showcases the interactions within the application:
+![DeleteOrderSequenceDiagram.png](images%2FDeleteOrderSequenceDiagram.png)
+
+This will delete both the `Order` in the `ObservableList` for orders and from the `Client` object as well.
+
+The following classes and methods have been added to support the implementation of this feature:
+
+1. `DeleteOrderCommand`  
+   Created a `DeleteOrderCommand` class to cater to delete orders by their index in their `ObservableList` class.
+   This will allow the users to delete by index instead of the UUID. The `DeleteOrderCommand` first checks
+   the `ObservableList` by index to determine if the `Order` index is valid, then checks which `Client` the `Order`
+   object belongs to. This allows the modification of both `Client`s and `Order`s at the same time.
+   Upon execution of this command, it will return the `CommandResult` on for the output box to indicate if it was a
+   successful command or not.
+2. `DeleteOrderCommandParser`  
+   Creating a `DeleteOrderCommandParser` class to create the respective `Command` object by parsing the user input.
+   This flow is as intended, and will allow us to get index of the Order object in the `ObservableList`.
+   This will create the respective `DeleteOrderCommand` to be executed by the `LogicManager`.
+
+#### Why it is implemented this way
+
+1. Separation of Concerns:   
+   Again, by simply delegating specific responsibilities to specialized classes (like `DeleteOrderCommandParser` and
+   `DeleteOrderCommand`), the design adheres to the principle of separation of concerns. This means each part
+   of the system has a clear responsibility, reducing complexity and making the codebase easier to understand and
+   maintain.
 
 #### Command and CommandParser Implementations
 
@@ -211,33 +318,12 @@ To implement the new Order Logic, a new package has to be created within the com
 the order implementations. The key changes would be:
 
 - Creation of new classes:
-    - Created a `AddOrderCommand` class to cater to order creation inputs by the user. This will get the
-      referenced `Client` by their index in the `ObservableList` and check if the `Client` index is valid.
-      Afterwards, it will create & append the `Order` object into the `Client` object's respective orders list.
-      Upon execution of this command, it will return the `CommandResult` on for the output box to indicate if it was a
-      successful command or not.
-    - Created a `DeleteOrderCommand` class to cater to delete orders by their index in their `ObservableList` class.
-      This will allow the users to delete by index instead of the UUID. The `DeleteOrderCommand` first checks
-      the `ObservableList` by index to determine if the `Order` index is valid, then checks which `Client` the `Order`
-      object belongs to. This allows the modification of both `Client`s and `Order`s at the same time.
-      Upon execution of this command, it will return the `CommandResult` on for the output box to indicate if it was a
-      successful command or not.
-
     - Created a `EditOrderCommand` class to cater to allow editing Orders by the user. It will first search the `Order`
       objects in the `ObservableList` to ensure that the index is valid, before finding the `Client` object that
       the `Order` object belongs to.
       Afterwards, the `Order` object is edited, and will be replaced in the `Client` object's orders list to update the
       details. This will be encapsulated and returned in a `Command` object that will be executed in the main logic.
 - Creation of new parser classes:
-    - Creating a `AddOrderCommandParser` class to create the respective `Command` object by parsing the user input. This
-      flow is as intended, and will allow us to get index of the `Client` object in the `ObservableList` and get the
-      required parameters typed by the user by parsing it with
-      the `Prefix` objects in `CliSyntax` class.
-      For this command, the prefixes used would be `d/` for description, `c/` for price and `by/` for the deadline.
-      The respective `AddOrderCommand` will be created to be executed by the `LogicManager`.
-    - Creating a `DeleteOrderCommandParser` class to create the respective `Command` object by parsing the user input.
-      This flow is as intended, and will allow us to get index of the Order object in the `ObservableList`.
-      This will create the respective `DeleteOrderCommand` to be executed by the `LogicManager`.
     - Creating a `EditOrderCommandParser` class to create the respective `Command` object by parsing the user input.
       This flow is as intended, and will allow us to get index of the Order object in the `ObservableList` and get the
       required parameters typed by the user by parsing it with
@@ -254,9 +340,6 @@ the order implementations. The key changes would be:
 
 It was done in this manner to adhere to the following design principles:
 
-- Separation of Concerns: By delegating specific responsibilities to specialized classes (like `BookKeeperParser`,
-  `AddOrderCommandParser`, etc.), the design adheres to the principle of separation of concerns. This means each part of
-  the system has a clear responsibility, reducing complexity and making the codebase easier to understand and maintain.
 - Provide Extensibility: With a modular structure, adding new functionality (like future order implementations)
   involves creating new classes and modifying existing ones minimally. This approach makes the system more extensible,
   as seen with the introduction of new parser and command classes for handling orders.
@@ -278,135 +361,6 @@ How the parsing works:
   a `Command` object.
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser`
   interface so that they can be treated similarly where possible e.g, during testing.
-
-#### Storage Implementations
-
-To implement this feature, several modifications were made across different classes within the `Storage` package. The
-key changes include:
-
-1. New Classes: The introduction of `JsonAdaptedClient` and `JsonAdaptedOrder` classes to facilitate the conversion
-   between JSON format and the corresponding model objects (`Client` and `Order`).
-
-2. Updated Interfaces: The `BookKeeperStorage` interface was extended to included methods for reading and writing
-   orders. Similarly, the `Storage` interface, which serves as an umbrella for all storage-related functionalities,
-   was update to incorporate these changes.
-
-3. Storage Manager: The `StorageManager` class, which orchestrates the storage operations, was modified to delegate the
-   handling of client and order data to the appropriate storage classes.
-
-4. Unit Tests: Unit tests were added or updated to ensure the correctness and robustness of the new functionalities.
-
-#### Why it is implemented that way:
-
-With the implementation of storing clients and orders details, the `Storage` component of our application has been
-enhanced to better meet the evolving needs of our users. These changes not only improve the functionality of our
-application but also lay the groundwork for future enhancements and features.
-
-Future plans may involve further optimizing the storage mechanisms, exploring alternative storage formats, or
-integrating additional data validation checks to ensure data integrity. Overall, the recent enhancements to
-the `Storage` component
-mark a significant step forward in enhancing the robustness and flexibility of our application.
-
-### \[Proposed\] Undo/redo feature
-
-#### Proposed Implementation
-
-The proposed undo/redo mechanism is facilitated by `VersionedBookKeeper`. It extends `BookKeeper` with an undo/redo
-history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the
-following operations:
-
-* `VersionedBookKeeper#commit()`— Saves the current bookkeeper state in its history.
-* `VersionedBookKeeper#undo()`— Restores the previous bookkeeper state from its history.
-* `VersionedBookKeeper#redo()`— Restores a previously undone bookkeeper state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitBookKeeper()`, `Model#undoBookKeeper()`
-and `Model#redoBookKeeper()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedBookKeeper` will be initialized with the
-initial bookkeeper state, and the `currentStatePointer` pointing to that single bookkeeper state.
-
-![UndoRedoState0](images/UndoRedoState0.png)
-
-Step 2. The user executes `delete 5` command to delete the 5th client in bookkeeper. The `delete` command
-calls `Model#commitBookKeeper()`, causing the modified state of bookkeeper after the `delete 5` command executes
-to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted bookkeeper
-state.
-
-![UndoRedoState1](images/UndoRedoState1.png)
-
-Step 3. The user executes `add n/David …​` to add a new client. The `add` command also
-calls `Model#commitBookKeeper()`, causing another modified bookkeeper state to be saved into
-the `addressBookStateList`.
-
-![UndoRedoState2](images/UndoRedoState2.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution, it will not call `Model#commitBookKeeper()`, so bookkeeper state will not be saved into the `addressBookStateList`.
-
-</div>
-
-Step 4. The user now decides that adding the client was a mistake, and decides to undo that action by executing
-the `undo` command. The `undo` command will call `Model#undoBookKeeper()`, which will shift the `currentStatePointer`
-once to the left, pointing it to the previous bookkeeper state, and restores bookkeeper to that state.
-
-![UndoRedoState3](images/UndoRedoState3.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index 0, pointing to the initial BookKeeper state, then there are no previous BookKeeper states to restore. The `undo` command uses `Model#canUndoBookKeeper()` to check if this is the case. If so, it will return an error to the user rather
-than attempting to perform the undo.
-
-</div>
-
-The following sequence diagram shows how an undo operation goes through the `Logic` component:
-
-![UndoSequenceDiagram](images/UndoSequenceDiagram-Logic.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-</div>
-
-Similarly, how an undo operation goes through the `Model` component is shown below:
-
-![UndoSequenceDiagram](images/UndoSequenceDiagram-Model.png)
-
-The `redo` command does the opposite — it calls `Model#redoBookKeeper()`, which shifts the `currentStatePointer` once
-to the right, pointing to the previously undone state, and restores bookkeeper to that state.
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest bookkeeper state, then there are no undone BookKeeper states to restore. The `redo` command uses `Model#canRedoBookKeeper()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-</div>
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify bookkeeper, such
-as `list`, will usually not call `Model#commitBookKeeper()`, `Model#undoBookKeeper()` or `Model#redoBookKeeper()`.
-Thus, the `addressBookStateList` remains unchanged.
-
-![UndoRedoState4](images/UndoRedoState4.png)
-
-Step 6. The user executes `clear`, which calls `Model#commitBookKeeper()`. Since the `currentStatePointer` is not
-pointing at the end of the `addressBookStateList`, all bookkeeper states after the `currentStatePointer` will be
-purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern
-desktop applications follow.
-
-![UndoRedoState5](images/UndoRedoState5.png)
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-<img src="images/CommitActivityDiagram.png" width="250" />
-
-#### Design considerations:
-
-**Aspect: How undo & redo executes:**
-
-* **Alternative 1 (current choice):** Saves the entire bookkeeper.
-    * Pros: Easy to implement.
-    * Cons: May have performance issues in terms of memory usage.
-
-* **Alternative 2:** Individual command knows how to undo/redo by
-  itself.
-    * Pros: Will use less memory (e.g. for `delete`, just save the client being deleted).
-    * Cons: We must ensure that the implementation of each individual command are correct.
-
-_{more aspects and alternatives to be added}_
 
 ### View Orders feature
 

@@ -1,0 +1,77 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":BookKeeperParser" as BookKeeperParser LOGIC_COLOR
+participant ":AddOrderCommandParser" as AddOrderCommandParser LOGIC_COLOR
+participant "o:Order" as Order LOGIC_COLOR
+participant "a:AddOrderCommand" as AddOrderCommand LOGIC_COLOR
+participant "r:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "m:Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("order args")
+activate LogicManager
+
+LogicManager -> BookKeeperParser : parseCommand("order args")
+activate BookKeeperParser
+
+create AddOrderCommandParser
+BookKeeperParser -> AddOrderCommandParser
+activate AddOrderCommandParser
+
+AddOrderCommandParser --> BookKeeperParser
+deactivate AddOrderCommandParser
+
+BookKeeperParser -> AddOrderCommandParser : parse(args)
+activate AddOrderCommandParser
+
+create Order
+AddOrderCommandParser -> Order : parse(args)
+activate Order
+Order --> AddOrderCommandParser
+deactivate Order
+
+create AddOrderCommand
+AddOrderCommandParser -> AddOrderCommand : new AddOrderCommand(o)
+activate AddOrderCommand
+
+AddOrderCommand --> AddOrderCommandParser :
+deactivate AddOrderCommand
+
+AddOrderCommandParser --> BookKeeperParser : a
+deactivate AddOrderCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+AddOrderCommandParser -[hidden]-> BookKeeperParser
+destroy AddOrderCommandParser
+
+BookKeeperParser --> LogicManager : a
+deactivate BookKeeperParser
+
+LogicManager -> AddOrderCommand : execute(m)
+activate AddOrderCommand
+
+AddOrderCommand -> Model : addOrder(o)
+activate Model
+
+Model --> AddOrderCommand
+deactivate Model
+
+create CommandResult
+AddOrderCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AddOrderCommand
+deactivate CommandResult
+
+AddOrderCommand --> LogicManager : r
+deactivate AddOrderCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
