@@ -20,7 +20,6 @@ Class Name
 Class Phone
 Class Tag
 
-Class OrderList
 Class Order
 Class OrderId
 Class OrderDate
@@ -28,7 +27,6 @@ Class Deadline
 Class Price
 Class Description
 Class Status
-Class ClientId
 
 Class I #FFFFFF
 }
@@ -59,18 +57,14 @@ Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address
 Address -[hidden]right-> Email
 
-BookKeeper *--> "1" OrderList
+Client "1" <--> "*" Order
 
-
-OrderList --> "~* all" Order
-Order -[hidden]up->Name
-Order *--> OrderId
 Order *--> OrderDate
 Order *--> Deadline
 Order *--> Price
 Order *--> Description
 Order *--> Status
-Order *--> ClientId
 
-ModelManager --> "~* filtered" Client
+ModelManager --> "                                ~* filtered\n\n" Order
+ModelManager --> "      ~* filtered" Client
 @enduml

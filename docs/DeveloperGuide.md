@@ -128,7 +128,7 @@ How the `Logic` component works:
    creates a parser corresponding to the command type (e.g., `DeleteCommandParser`) and utilizes it to interpret the
    command.
 2. This process generates a `Command` object (to be more specific, an instance of one of its subclasses, e.g.,
-   DeleteCommand) which is then executed by the `LogicManager`.
+   `DeleteCommand`) which is then executed by the `LogicManager`.
 3. During execution, the command can interact with the `Model` (e.g., to delete a `Client` or manage `Order`
    details).<br>
    While this interaction is depicted as a singular step in the above diagram for the sake of simplicity, the actual
@@ -203,9 +203,9 @@ This section describes some noteworthy details on how certain features are imple
 
 ### Order class
 
-![BetterOrderClassDiagram.png](images%2FBetterOrderClassDiagram.png)
+![BetterOrderClassDiagram.png](images/BetterOrderClassDiagram.png)
 
-Order is a new class added to encapsulate the logic of an Order. It has a composition relationship with the `Client`
+`Order` is a new class added to encapsulate the logic of an Order. It is related to `Client`
 class, and contains the following attributes:
 
 1. OrderDate
@@ -215,7 +215,7 @@ class, and contains the following attributes:
 5. Status
 
 The OrderDate is the time in which the order is created.  
-The Deadline is the time in which the order is due, which is specificed by the user.  
+The Deadline is the time in which the order is due, which is specified by the user.  
 The Price is a Double type where it represents the price for the order, and follows a numerical format of 2 decimal
 places.  
 The Description a String type which holds the description of the Order.
