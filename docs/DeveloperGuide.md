@@ -246,16 +246,17 @@ class, and contains the following attributes:
 4. Description
 5. Status
 
-Each of these attributes are its own class, and they serve the following purposes:
+Each of these attributes form its own class, and they serve the following purposes:
 The `OrderDate` is the time in which the order is created.  
 The `Deadline` is the time in which the order is due, which is specified by the user.  
-The `Price` is a `Double` type where it represents the price for the order, and follows a numerical format of 2 decimal
+The `Price` is backed by a `Double` type where it represents the price for the order, and follows a numerical format of
+2 decimal
 places.  
-The `Description` is a `String` type which holds the description of the Order.
+The `Description` is backed by a `String` type which holds the description of the Order.
 
 ![OrderStatusEnumClassDiagram.png](images/OrderStatusEnumClassDiagram.png)
 
-The `Status` is the current status of the respective Order. This class backed by an enum StatusEnum consisting of 3
+The `Status` is the current status of the respective Order. This class is backed by an enum, StatusEnum consisting of 3
 values `PENDING`, `COMPLETED`, `CANCELED`.
 
 ### Storing an Order
