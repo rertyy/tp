@@ -370,7 +370,7 @@ The following classes and methods have been added to support the implementation 
    These prefixes are optional, and not including them will use the current `Order` object details.
 3. `EditOrderCommandParser#EditOrderDescriptor`  
    This is a nested static class within the `EditOrderCommand` class that manages the `Order` information.
-   It's role is to temporarily hold the values of `Order` information that may or may not be updated. It acts as a data
+   Its role is to temporarily hold the values of `Order` information that may or may not be updated. It acts as a data
    transfer object that contains the details to be edited by the user.
    Additionally, it helps to validate the fields to ensure that there are only valid values will be accepted, and to
    parse and apply the edits.
@@ -836,9 +836,9 @@ Command: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
     * Names only accept 0-9 and a-z and are case-sensitive.
     * Two persons with the same name are not allowed, but two persons with the same name but different cases are
       allowed.
-    * Phone number must be numeric and at least 3 numbers. It must not contain spaces “ “, brackets `()` or hyphens
+    * Phone number must be numeric and at least 3 numbers. It must not contain spaces " ", brackets `()` or hyphens
       `-`, plus `+` , or other symbols.
-    * Emails must not have consecutive special characters. E.g. “john..doe@example.com” is not accepted.
+        * Emails must not have consecutive special characters. E.g. “john..doe@example.com” is not accepted.
 
 Expected Output:
 
